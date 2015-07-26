@@ -28,5 +28,15 @@ public class Launcher {
         entrys.add(new Entry());
         
        new HtmlPrinter().print(entrys);
+       
+       
+       // csv mit targets einlesen
+       // csv mit echten fahrten einlesen (optional)
+       // csv generieren mit entfernungsfragen, tank placement fragen
+       // placen bis letzte werkstadtrouter
+       // privatanteil anzeigen und fake dienstfahrten/office fahrten vorschlagen (nicht zu viele office fahrten), ersatzteil fahrten /achtung bei parktickets -> bestätigungs gui
+       // nach bestätigung placen
+       // drucken
+       
     }
 }
