@@ -8,7 +8,7 @@ package de.jhit.fbs.container;
  *
  * @author Jens
  */
-public class Entry {
+public class VisualizationEntry {
     String date = "30.12.";
     String time = "9:30 - 20:30";
     String target = "Norden, Süden";

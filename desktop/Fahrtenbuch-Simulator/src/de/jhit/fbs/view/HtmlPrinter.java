@@ -4,7 +4,7 @@
  */
 package de.jhit.fbs.view;
 
-import de.jhit.fbs.container.Entry;
+import de.jhit.fbs.container.VisualizationEntry;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +37,7 @@ public class HtmlPrinter {
     public static final String GASAMOUNT_TAG = "<--! !!GASAMOUNT!! -->";
     public static final String GASMONEY_TAG = "<--! !!GASMONEY!! -->";
 
-    public void print(List<Entry> entrys) throws UnsupportedEncodingException, IOException {
+    public void print(List<VisualizationEntry> entrys) throws UnsupportedEncodingException, IOException {
         StringBuilder template = new StringBuilder();
         StringBuilder content = new StringBuilder();
 
@@ -48,7 +48,7 @@ public class HtmlPrinter {
         // read content template
         BufferedReader reader;
         String line;
-        for (Entry entry : entrys) {
+        for (VisualizationEntry entry : entrys) {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(contentFile)));
             while ((line = reader.readLine()) != null) {
                 if (line.contains(DATE_TAG)) {

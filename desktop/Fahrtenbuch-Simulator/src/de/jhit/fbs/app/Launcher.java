@@ -4,12 +4,7 @@
  */
 package de.jhit.fbs.app;
 
-import de.jhit.fbs.container.Entry;
-import de.jhit.fbs.view.HtmlPrinter;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
+import de.jhit.fbs.ztests.Task;
 
 /**
  *
@@ -19,24 +14,13 @@ public class Launcher {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws UnsupportedEncodingException, IOException {
-        List<Entry> entrys = new ArrayList<>();
-        entrys.add(new Entry());
-        entrys.add(new Entry());
-        entrys.add(new Entry());
-        entrys.add(new Entry());
-        
-       new HtmlPrinter().print(entrys);
+    public static void main(String[] args) throws Exception {
+//       Task.testVisualization();
        
+       Task.testValidation();
        
-       // csv mit targets einlesen
-       // csv mit echten fahrten einlesen (optional)
-       // csv generieren mit entfernungsfragen, tank placement fragen
-       // placen bis letzte werkstadtrouter
-       // privatanteil anzeigen und fake dienstfahrten/office fahrten vorschlagen (nicht zu viele office fahrten), ersatzteil fahrten /achtung bei parktickets -> bestätigungs gui
-       // nach bestätigung placen
-       // drucken
-       
+       Task.testRandomizer();
     }
 }
