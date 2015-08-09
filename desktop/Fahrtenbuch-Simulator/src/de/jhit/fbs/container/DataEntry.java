@@ -13,18 +13,22 @@ import java.util.Date;
  */
 public class DataEntry {
 
-    public Date startTime ;
+    public static final int TYPE_PRIVATE = 0;
+    public static final int TYPE_OFFICE = 1;
+    public static final int TYPE_WORK = 1;
+    public Date startTime;
     public Date endTime;
-    public Location startPoint;
-    public Location endPoint;
-    public String reason = "Kundenbesuch";
-    public String person = "Mustermann";
-    public String kmStart = "128875";
-    public String kmEnd = "128963";
-    public String kmPrivate = "88";
-    public String kmFirm = "&nbsp;";
-    public String kmOffice = "&nbsp;";
-    public String gasAmount = "3";
-    public String gasMoney = "56,30";
+    public Route route;
+    public String reason;
+    public String person;
+    public int kmStart;
+    public int kmEnd;
+    public int type;
+    public double fuelAmount;
+    public double fuelMoney;
 
+    @Override
+    public String toString() {
+        return "DataEntry{" + "startTime=" + startTime + ", endTime=" + endTime + ", route=" + route + ", reason=" + reason + ", person=" + person + ", kmStart=" + kmStart + ", kmEnd=" + kmEnd + ", type=" + type + ", fuelAmount=" + fuelAmount + ", fuelMoney=" + fuelMoney + '}';
+    }
 }

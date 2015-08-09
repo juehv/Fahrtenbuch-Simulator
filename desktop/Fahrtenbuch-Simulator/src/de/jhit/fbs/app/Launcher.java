@@ -21,6 +21,6 @@ public class Launcher {
        
        Task.testValidation();
        
-       Task.testRandomizer();
+//       Task.testRandomizer();
     }
 }

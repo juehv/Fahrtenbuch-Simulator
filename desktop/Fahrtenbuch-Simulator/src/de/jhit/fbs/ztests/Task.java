@@ -5,11 +5,17 @@
  */
 package de.jhit.fbs.ztests;
 
+import de.jhit.fbs.analyser.RouteAnalyzer;
+import de.jhit.fbs.container.RawBook;
+import de.jhit.fbs.container.Route;
 import de.jhit.fbs.container.VisualizationEntry;
 import de.jhit.fbs.generators.WayLengthRandomizer;
+import de.jhit.fbs.csv.CsvInformationParser;
+import de.jhit.fbs.csv.CsvSheetWriter;
 import de.jhit.fbs.view.HtmlPrinter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,12 +32,11 @@ public class Task {
         entrys.add(new VisualizationEntry());
 
         new HtmlPrinter().print(entrys);
-        
+
         //TODO add visualization to write down by hand (no private times or routes, use handwritten font)
     }
 
     public static void testNormalOperation() throws Exception {
-
         // csv mit targets einlesen
         // csv mit echten fahrten einlesen (optional)
         // csv generieren mit entfernungsfragen, tank placement fragen
@@ -43,24 +48,48 @@ public class Task {
 
     public static void testValidation() throws Exception {
         // read csv fahrtenbuch
-        // convert to internel representation
-        // generate lengh asker (gui bitte eintragen und csv generieren und pfad angeben)
-        // read answers
-        // validate ways
+        RawBook book = CsvInformationParser.parseCsvFile("./test.csv");
+        // read old static file for old answers
+        List<Route> knownRoutes = CsvInformationParser.parseStaticFile("./static.csv");
+        // analyse route
+        List<Route> questionRoutes = RouteAnalyzer.returnSingleRoutesForQuestions(book, knownRoutes);
+        // write new questions
+        if (!CsvSheetWriter.writeQuestionSheet("./questions.csv", questionRoutes)) {
+            JOptionPane.showMessageDialog(null, "Error while writing questions file");
+            System.exit(-1);
+        }
+        // inform user
+        JOptionPane.showMessageDialog(null, "Question Sheet generated. Please fill the table and klick ok.", "", JOptionPane.INFORMATION_MESSAGE);
+        // read questions file
+        questionRoutes = CsvInformationParser.parseAnsweredQuestionsFile("./questions.csv");
+        // update route in book
+        book = RouteAnalyzer.updateRoutes(book, knownRoutes, questionRoutes);
+        // analyze fuel consumption
+        
+        // analyze waypoints (a->b b->c c->b ohne lücken)
+        
+        // reason analyzer (just for work: rf ohne hin fahrt, post ohne grund, kundenbesuch ohne grund ohne kunde --> schlagwörter analyse)
+        
+        // write suggestion book for review
+        
+        // inform user
+        
+        // read new book and restart (until no suggestions are nessesary)
+        
+        // visualize full information book and write down book and inform user for private/office/work kilometer
+        // for write down book generate short term for routes with more than 3 entrys
 
         // step 2
         // read targets
         // check if target points fit (kundenrechnungen, parktickets, tankticket, werkstatt)
-        // check fuel consumption
     }
 
     public static void testSimpleGenerator() throws Exception {
         // takes validation 
         // generates blocks with "insert x km here"
-        
-        
         // step 2
         // generate entrys before and after targets (fittet to 5 min)
+        // generate post before customer visits
     }
 
     public static void testRandomizer() {
