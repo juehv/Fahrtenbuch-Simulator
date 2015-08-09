@@ -5,6 +5,8 @@
 package de.jhit.fbs.csv;
 
 import com.csvreader.CsvWriter;
+import de.jhit.fbs.container.DataEntry;
+import de.jhit.fbs.container.RawBook;
 import de.jhit.fbs.container.Route;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +24,7 @@ import java.util.logging.Logger;
 public class CsvSheetWriter {
 
     private static final String[] QUESTION_SHEET_HEADER = {"Marker", "Start L", "End L", "Detours", "km", "Time 6-9", "Time 16-19", "Time else"};
+    private static final String[] SUGGESTION_BOOK_HEADER = {"Marker","Start Date", "End Date", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel", "Type"};
 
     public static boolean writeQuestionSheet(String pathToQuestionCsv, List<Route> questionRoutes) {
         CsvWriter cwriter = new CsvWriter(pathToQuestionCsv, ',', Charset.forName("UTF-8"));
@@ -48,8 +51,9 @@ public class CsvSheetWriter {
 
         try {
             // write header
-            cwriter.writeComment("Please fill the table.");
-            cwriter.writeComment("Values marked with \"!!-\" are duplicates with different values. Please remove the wrong one.");
+            // cant insert comments until found out how to skip them
+//            cwriter.writeComment("Please fill the table.");
+//            cwriter.writeComment("Values marked with \"!!-\" are duplicates with different values. Please remove the wrong one.");
             cwriter.writeRecord(QUESTION_SHEET_HEADER);
             // write questions
             for (Route item : questionRoutes) {
@@ -67,10 +71,34 @@ public class CsvSheetWriter {
         return false;
     }
 
-    public static boolean writeAnswersToStaticFile(String path) {
+    public static boolean writeNewStaticFile(String path, List<Route> knownRoutes) {
         // read static file
         // add ne entrys
         // done
         return true;
+    }
+
+    public static boolean writeSuggestedBook(String pathToSuggestionCsv, RawBook book) {
+         CsvWriter cwriter = new CsvWriter(pathToSuggestionCsv, ',', Charset.forName("UTF-8"));
+        
+        try {
+            // write header
+            // cant insert comments until found out how to skip them
+//            cwriter.writeComment("Please fill the table.");
+//            cwriter.writeComment("Values marked with \"!!-\" are duplicates with different values. Please remove the wrong one.");
+            cwriter.writeRecord(SUGGESTION_BOOK_HEADER);
+            // write entries
+            for (DataEntry item : book.entrys) {
+                item.toCsvSuggestionLine(cwriter);
+                cwriter.endRecord();
+            }
+
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(CsvSheetWriter.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cwriter.close();
+        }
+        return false;
     }
 }

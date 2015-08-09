@@ -35,7 +35,7 @@ public class Location {
             return false;
         }
         final Location other = (Location) obj;
-        if (!Objects.equals(this.point, other.point)) {
+        if (!this.point.equalsIgnoreCase(other.point)) {
             return false;
         }
         return true;

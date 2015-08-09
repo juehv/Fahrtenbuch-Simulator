@@ -62,20 +62,24 @@ public class Task {
         JOptionPane.showMessageDialog(null, "Question Sheet generated. Please fill the table and klick ok.", "", JOptionPane.INFORMATION_MESSAGE);
         // read questions file
         questionRoutes = CsvInformationParser.parseAnsweredQuestionsFile("./questions.csv");
+        knownRoutes.addAll(questionRoutes);
+        // update known routes
+        CsvSheetWriter.writeNewStaticFile("./static.csv", knownRoutes);
         // update route in book
-        book = RouteAnalyzer.updateRoutes(book, knownRoutes, questionRoutes);
+        book = RouteAnalyzer.updateRoutes(book, knownRoutes);
         // analyze fuel consumption
-        
+
         // analyze waypoints (a->b b->c c->b ohne lücken)
-        
+
         // reason analyzer (just for work: rf ohne hin fahrt, post ohne grund, kundenbesuch ohne grund ohne kunde --> schlagwörter analyse)
-        
+
         // write suggestion book for review
-        
+        CsvSheetWriter.writeSuggestedBook("./suggestion.csv", book);
         // inform user
-        
-        // read new book and restart (until no suggestions are nessesary)
-        
+        JOptionPane.showMessageDialog(null, "I think we know what you mean.\n"
+                + "Please review the book and click ok if done.", "", JOptionPane.INFORMATION_MESSAGE);
+        // read new book and restart (until no suggestions are nessesary or user force it)
+
         // visualize full information book and write down book and inform user for private/office/work kilometer
         // for write down book generate short term for routes with more than 3 entrys
 

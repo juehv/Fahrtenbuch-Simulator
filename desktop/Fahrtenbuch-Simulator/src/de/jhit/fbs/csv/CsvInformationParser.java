@@ -6,6 +6,7 @@
 package de.jhit.fbs.csv;
 
 import com.csvreader.CsvReader;
+import de.jhit.fbs.analyser.RouteAnalyzer;
 import de.jhit.fbs.container.DataEntry;
 import de.jhit.fbs.container.Location;
 import de.jhit.fbs.container.RawBook;
@@ -99,16 +100,23 @@ public class CsvInformationParser {
                 entry.endTime.setTime(entry.endTime.getTime() + 86400000);
             }
             // get route
+            //TODO combine code for reading route
             Route route = new Route();
             route.start = new Location(reader.get(3));
             route.end = new Location(reader.get(5));
             route.km = Integer.parseInt(reader.get(8));
-            String detoursP = reader.get(4);
-            if (detoursP != null && !detoursP.isEmpty()) {
-                ArrayList<Location> detoursList = new ArrayList<>();
-                detoursList.add(new Location(detoursP));
-                route.detours = detoursList;
+
+            route.detours = new ArrayList<>();
+            String detoursString = reader.get(4);
+            if (!detoursString.isEmpty()) {
+                String[] detoursArray = detoursString.split(Route.DETOURS_DELIMITER);
+                for (String item : detoursArray) {
+                    if (!item.isEmpty()) {
+                        route.detours.add(new Location(item));
+                    }
+                }
             }
+
             entry.route = route;
             // get time for route
             entry.route.typicalTimes = new RouteTimeTable();
@@ -172,7 +180,76 @@ public class CsvInformationParser {
         return new ArrayList<>();
     }
 
-    public static List<Route> parseAnsweredQuestionsFile(String questionscsv) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static List<Route> parseAnsweredQuestionsFile(String questionsCsvPath)
+            throws FileNotFoundException {
+        List<Route> updatedRoutes = new ArrayList<>();
+        // read file
+        CsvReader creader = new CsvReader(questionsCsvPath, ',',
+                Charset.forName("UTF-8"));
+
+        try {
+            // validate header
+            // TODO find out how to skip comments -.- 
+            creader.readHeaders();
+            for (int i = 0; i < creader.getHeaderCount(); i++) {
+                System.out.println(creader.getHeader(i));
+            }
+            // TODO check that structure is not modified
+
+            // read entries
+            while (creader.readRecord()) {
+                Route entry = parseRoute(creader);
+                if (entry != null) {
+                    updatedRoutes.add(entry);
+                    System.out.println(creader.getCurrentRecord() + " " + entry.toString());
+                } else {
+                    Logger.getLogger(CsvInformationParser.class.getName()).
+                            log(Level.WARNING, "Found unvalid entry: {0}",
+                            creader.getRawRecord());
+                }
+            }
+
+
+        } catch (IOException /*| ParseException*/ ex) {
+            Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            creader.close();
+        }
+        return updatedRoutes;
+    }
+
+    private static Route parseRoute(CsvReader reader) throws IOException {
+        if (reader.get(0).equalsIgnoreCase(RouteAnalyzer.DUPLICATE_MARKER)) {
+            return null;
+        }
+
+        // TODO use regex to check format
+
+        Route newEntry = new Route();
+
+        newEntry.start = new Location(reader.get(1));
+        newEntry.end = new Location(reader.get(2));
+
+        newEntry.detours = new ArrayList<>();
+        String detoursString = reader.get(3);
+        if (!detoursString.isEmpty()) {
+            String[] detoursArray = detoursString.split(Route.DETOURS_DELIMITER);
+            for (String item : detoursArray) {
+                if (!item.isEmpty()) {
+                    newEntry.detours.add(new Location(item));
+                }
+            }
+        }
+
+        newEntry.km = Integer.parseInt(reader.get(4));
+
+        RouteTimeTable times = new RouteTimeTable();
+        times.timeZone1 = Integer.parseInt(reader.get(5));
+        times.timeZone2 = Integer.parseInt(reader.get(6));
+        times.timeZone3 = Integer.parseInt(reader.get(7));
+
+        newEntry.typicalTimes = times;
+
+        return newEntry;
     }
 }

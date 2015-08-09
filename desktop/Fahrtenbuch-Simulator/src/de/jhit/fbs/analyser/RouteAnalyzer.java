@@ -10,6 +10,8 @@ import de.jhit.fbs.container.Route;
 import de.jhit.fbs.smartcontainer.RouteTimeTable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,11 +44,6 @@ public class RouteAnalyzer {
                 singleRoutes.add(item.route);
             }
         }
-
-        // TODO if contains
-        // check if km diverts more than +/-1 km
-        // check if time is in a unknown zone and if it is
-        // check if time diverts more thant +/- 10 minutes form knwon time
 
         return singleRoutes;
     }
@@ -107,7 +104,24 @@ public class RouteAnalyzer {
         return false;
     }
 
-    public static RawBook updateRoutes(RawBook book, List<Route> knownRoutes, List<Route> questionRoutes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static RawBook updateRoutes(RawBook book, List<Route> knownRoutes) {
+
+        for (DataEntry item : book.entrys) {
+            if (knownRoutes.contains(item.route)) {
+                // known route -> check if values are different
+                Route tmpRoute = knownRoutes.get(knownRoutes.indexOf(item.route));
+                item.route.km = tmpRoute.km;
+                item.route.typicalTimes = tmpRoute.typicalTimes;
+            } else {
+                // unknown route -> should not happen
+                Logger.getLogger(RouteAnalyzer.class.getName())
+                        .log(Level.SEVERE,
+                        "Can''t find the route in knowledge base! Exit.\n{0}",
+                        item.route.toString());
+                System.exit(-1);
+            }
+        }
+
+        return book;
     }
 }
