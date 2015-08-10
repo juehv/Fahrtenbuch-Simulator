@@ -59,12 +59,8 @@ public class CsvValidator {
     }
 
     public static boolean isMarkerValid(Marker marker) {
-        if (marker.contains(Constants.DUPLICATE_MARKER)
-                || marker.contains(Constants.SUGGESTION_MARKER)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(marker.contains(Constants.DUPLICATE_MARKER)
+                || marker.contains(Constants.SUGGESTION_MARKER));
     }
 
 }

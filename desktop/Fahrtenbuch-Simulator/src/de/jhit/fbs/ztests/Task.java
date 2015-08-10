@@ -33,7 +33,7 @@ public class Task {
         entrys.add(new VisualizationEntry());
         entrys.add(new VisualizationEntry());
 
-        new HtmlPrinter().printFullBook(entrys);
+        new HtmlPrinter().printFullBook(entrys,"./tmp.html");
 
         //TODO add visualization to write down by hand (no private times or routes, use handwritten font)
     }
@@ -78,8 +78,12 @@ public class Task {
         }
         // update route in book
         book = RouteAnalyzer.updateRoutes(book, knownRoutes);
+        // check if km counter is correct
+        book = RouteAnalyzer.checkKilometerCounter(book);
         // check if drive times are correct. add warning marker if not.
         book = RouteAnalyzer.checkRouteTimes(book);
+        // check if km are correct. add warning marker if not.
+        book = RouteAnalyzer.checkRouteDistance(book, knownRoutes);
         // check if wayoints are without gabs. add warning marker if not.
         book = RouteAnalyzer.checkRouteWaypoints(book);
         // analyze fuel consumption
@@ -87,7 +91,7 @@ public class Task {
         book = FuelAnalyzer.calculateMissingInformation(book, 5, 8);
         // write suggestion book for review
         if (!CsvSheetWriter.writeSuggestedBook("./suggestion.csv", book)) {
-            JOptionPane.showMessageDialog(null, "Error while writing questions file",
+            JOptionPane.showMessageDialog(null, "Error while writing suggestion file",
                     "", JOptionPane.ERROR_MESSAGE);
             System.exit(-1);
         }
@@ -112,9 +116,9 @@ public class Task {
         // analyse for short terms (more than 6 time a waypoint)
         book.shortcuts = RouteAnalyzer.generateRouteShortcuts(book.getRoutes());
         // visualize full information book
-        new HtmlPrinter().printFullBook(PrintableEntryFactory.convertEntrys(book.entrys));
+        new HtmlPrinter().printFullBook(PrintableEntryFactory.convertEntrys(book.entrys),"./tmp.html");
         // visualize write down book and shortcut table
-        new HtmlPrinter().printHandwriteBook(PrintableEntryFactory.convertEntrys(book.entrys), book.shortcuts);
+//        new HtmlPrinter().printHandwriteBook(PrintableEntryFactory.convertEntrys(book.entrys), book.shortcuts);
 
         // visualize full information book and write down book and inform user for private/office/work kilometer
         // for write down book generate short term for routes with more than 3 entrys

@@ -10,7 +10,6 @@ import de.jhit.fbs.container.DataEntry;
 import de.jhit.fbs.container.Location;
 import de.jhit.fbs.container.Constants;
 import de.jhit.fbs.container.Marker;
-import de.jhit.fbs.container.RawBook;
 import de.jhit.fbs.container.Route;
 import de.jhit.fbs.smartcontainer.RouteTimeTable;
 import java.io.FileNotFoundException;
@@ -35,44 +34,6 @@ public class CsvInformationParser {
     // write funktion to generate empty table
     // use header names instead of in to enable flexible tables with and without marker coloumn
 
-//    public static RawBook parseInitCsvBook(String filepath)
-//            throws FileNotFoundException {
-//        RawBook book = new RawBook();
-//        book.entrys = new ArrayList<>();
-//        // read file
-//        CsvReader creader = new CsvReader(filepath, ',', Charset.forName("UTF-8"));
-//
-//        try {
-//            // validate header
-//            creader.readHeaders();
-//            if (!CsvValidator.validateSimpleBookHeader(creader)) {
-//                Logger.getLogger(CsvInformationParser.class.getName()).
-//                        log(Level.SEVERE,
-//                                "Stop parser because of unvalid header:\n{0}",
-//                                creader.getRawRecord());
-//                return null;
-//            }
-//
-//            // read entries
-//            while (creader.readRecord()) {
-//                DataEntry entry = parseEntry(creader);
-//                if (entry != null) {
-//                    book.entrys.add(entry);
-//                    System.out.println(creader.getCurrentRecord() + " " + entry.toString());
-//                } else {
-//                    Logger.getLogger(CsvInformationParser.class.getName()).
-//                            log(Level.WARNING, "Found unvalid entry: {0}",
-//                                    creader.getRawRecord());
-//                }
-//            }
-//
-//        } catch (IOException | ParseException ex) {
-//            Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            creader.close();
-//        }
-//        return book;
-//    }
     //TODO move to util class
     public static int calculateDurationForZone(long start, long end) {
         long duration = end - start;
@@ -250,7 +211,7 @@ public class CsvInformationParser {
         entry.reason = reader.get(Constants.THEADER_REASON);
         entry.person = reader.get(Constants.THEADER_PERSON);
         entry.kmEnd = Integer.parseInt(reader.get(Constants.THEADER_KM_COUNTER));
-        switch (reader.get(Constants.THEADER_TYPE)) {
+        switch (reader.get(Constants.THEADER_TYPE).toUpperCase()) {
             case Constants.TYPE_PRIVATE_STRING:
                 entry.type = Constants.TYPE_PRIVATE;
                 break;
@@ -262,7 +223,7 @@ public class CsvInformationParser {
                 break;
             default:
                 Logger.getLogger(CsvInformationParser.class.getName())
-                        .log(Level.WARNING, "Unknwon Type!{0}",
+                        .log(Level.WARNING, "Unknwon Type! {0}",
                                 reader.get(Constants.THEADER_TYPE));
 
         }
@@ -291,12 +252,12 @@ public class CsvInformationParser {
 
     private static DataEntry parseRouteEntry(DataEntry entry, CsvReader reader) throws IOException {
         Route route = new Route();
-        route.start = new Location(reader.get(3));
-        route.end = new Location(reader.get(5));
-        route.km = Integer.parseInt(reader.get(8));
+        route.start = new Location(reader.get(Constants.THEADER_LOCATION_START));
+        route.end = new Location(reader.get(Constants.THEADER_LOCATION_END));
+        route.km = Integer.parseInt(reader.get(Constants.THEADER_KM));
 
         route.detours = new ArrayList<>();
-        String detoursString = reader.get(4);
+        String detoursString = reader.get(Constants.THEADER_LOCATION_DETOURS);
         if (!detoursString.isEmpty()) {
             String[] detoursArray = detoursString.split(Constants.DETOURS_DELIMITER);
             for (String item : detoursArray) {
@@ -309,6 +270,26 @@ public class CsvInformationParser {
         entry.route = route;
         // init dummy route table for later
         entry.route.typicalTimes = new RouteTimeTable();
+
+        switch (RouteTimeTable.getZoneOfTime(entry.startTime)) {
+            case Constants.TIME_ZONE_1:
+                entry.route.typicalTimes.timeZone1
+                        = calculateDurationForZone(entry.startTime.getTime(),
+                                entry.endTime.getTime());
+                break;
+            case Constants.TIME_ZONE_2:
+                entry.route.typicalTimes.timeZone2
+                        = calculateDurationForZone(entry.startTime.getTime(),
+                                entry.endTime.getTime());
+                break;
+            case Constants.TIME_ZONE_3:
+                entry.route.typicalTimes.timeZone3
+                        = calculateDurationForZone(entry.startTime.getTime(),
+                                entry.endTime.getTime());
+                break;
+            default:
+                throw new IllegalStateException("PROGRAMMIERFEHLER");
+        }
 
         return entry;
     }

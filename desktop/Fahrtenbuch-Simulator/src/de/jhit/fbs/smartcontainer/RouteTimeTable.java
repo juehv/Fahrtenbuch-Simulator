@@ -70,4 +70,8 @@ public class RouteTimeTable {
         }
         return Constants.TIME_ZONE_3; // return 3 if unknown
     }
+
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

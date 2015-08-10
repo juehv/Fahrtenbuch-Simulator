@@ -38,13 +38,13 @@ public class HtmlPrinter {
     public static final String GASAMOUNT_TAG = "<--! !!GASAMOUNT!! -->";
     public static final String GASMONEY_TAG = "<--! !!GASMONEY!! -->";
 
-    public void printFullBook(List<VisualizationEntry> entrys) throws UnsupportedEncodingException, IOException {
+    public void printFullBook(List<VisualizationEntry> entrys, String filepath) throws UnsupportedEncodingException, IOException {
         StringBuilder template = new StringBuilder();
         StringBuilder content = new StringBuilder();
 
         File templateFile = new File(getClass().getResource("./zweckform_template.html").getFile());
         File contentFile = new File(getClass().getResource("./zweckform_line.html").getFile());
-        Path tmpFile = Paths.get("./tmp.html");
+        Path tmpFile = Paths.get(filepath);
 
         // read content template
         BufferedReader reader;
@@ -100,7 +100,7 @@ public class HtmlPrinter {
         Files.write(tmpFile, template.toString().getBytes(), StandardOpenOption.CREATE);
     }
 
-    public void printHandwriteBook(List<VisualizationEntry> convertEntrys, Map<String, String> shortcuts) {
+    public void printHandwriteBook(List<VisualizationEntry> convertEntrys, Map<String, String> shortcuts, String filepath) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

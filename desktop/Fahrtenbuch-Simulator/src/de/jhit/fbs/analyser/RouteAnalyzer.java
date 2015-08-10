@@ -24,8 +24,6 @@ import java.util.logging.Logger;
  */
 public class RouteAnalyzer {
 
-    public static final int TIME_DIVERSION_RANGE = 10;
-
     public static List<Route> returnSingleRoutesForQuestions(List<Route> newRoutes, List<Route> knownRoutes) {
         return markIfRouteIsInDbAndUpdate(returnSingleRoutes(newRoutes), knownRoutes);
     }
@@ -85,27 +83,32 @@ public class RouteAnalyzer {
                 newRoute.typicalTimes.timeZone1,
                 knownRoute.typicalTimes.timeZone1);
         retval |= isTimeDivertionOutOfRange(newRoute.typicalTimes.timeZone1,
-                knownRoute.typicalTimes.timeZone1, TIME_DIVERSION_RANGE);
+                knownRoute.typicalTimes.timeZone1, Constants.TIME_DIVERSION_RANGE);
 
         knownRoute.typicalTimes.timeZone2 = updateZones(
                 newRoute.typicalTimes.timeZone2,
                 knownRoute.typicalTimes.timeZone2);
         retval |= isTimeDivertionOutOfRange(newRoute.typicalTimes.timeZone2,
-                knownRoute.typicalTimes.timeZone2, TIME_DIVERSION_RANGE);
+                knownRoute.typicalTimes.timeZone2, Constants.TIME_DIVERSION_RANGE);
 
         knownRoute.typicalTimes.timeZone3 = updateZones(
                 newRoute.typicalTimes.timeZone3,
                 knownRoute.typicalTimes.timeZone3);
         retval |= isTimeDivertionOutOfRange(newRoute.typicalTimes.timeZone3,
-                knownRoute.typicalTimes.timeZone3, TIME_DIVERSION_RANGE);
+                knownRoute.typicalTimes.timeZone3, Constants.TIME_DIVERSION_RANGE);
 
         // check km
-        if (knownRoute.km + 1 < newRoute.km
-                && newRoute.km < knownRoute.km - 1) {
-            // km diverts more than +/- 1 km -> needs review
-            retval = true;
-        }
+        retval |= isDistanceDifferent(knownRoute, newRoute);
         return retval;
+    }
+
+    private static boolean isDistanceDifferent(Route reference, Route check) {
+        if (reference.km + Constants.KM_DIVERSION_RANGE < check.km
+                || check.km < reference.km - Constants.KM_DIVERSION_RANGE) {
+            // km diverts more than +/- 1 km -> needs review
+            return true;
+        }
+        return false;
     }
 
     // TODO mv to util class
@@ -142,7 +145,7 @@ public class RouteAnalyzer {
             if (knownRoutes.contains(item.route)) {
                 // known route -> check if values are different
                 Route tmpRoute = knownRoutes.get(knownRoutes.indexOf(item.route));
-                item.route.km = tmpRoute.km;
+                //item.route.km = tmpRoute.km;
                 item.route.typicalTimes = tmpRoute.typicalTimes;
             } else {
                 // unknown route -> should not happen
@@ -165,30 +168,32 @@ public class RouteAnalyzer {
             if (entry.startTime.getHours() >= 6
                     && entry.startTime.getHours() <= 9) {
                 // Zone 1
-                isUnusualTime = isTimeDivertionOutOfRange(
-                        CsvInformationParser.calculateDurationForZone(
-                                entry.startTime.getTime(),
-                                entry.endTime.getTime()),
-                        entry.route.typicalTimes.timeZone1, TIME_DIVERSION_RANGE);
+                isUnusualTime = isTimeDivertionOutOfRange(CsvInformationParser.calculateDurationForZone(
+                        entry.startTime.getTime(),
+                        entry.endTime.getTime()),
+                        entry.route.typicalTimes.timeZone1, Constants.TIME_DIVERSION_RANGE);
             } else if (entry.startTime.getHours() >= 16
                     && entry.startTime.getHours() <= 18) {
                 // Zone 2
-                isUnusualTime = isTimeDivertionOutOfRange(
-                        CsvInformationParser.calculateDurationForZone(
-                                entry.startTime.getTime(),
-                                entry.endTime.getTime()),
-                        entry.route.typicalTimes.timeZone2, TIME_DIVERSION_RANGE);
+                isUnusualTime = isTimeDivertionOutOfRange(CsvInformationParser.calculateDurationForZone(
+                        entry.startTime.getTime(),
+                        entry.endTime.getTime()),
+                        entry.route.typicalTimes.timeZone2, Constants.TIME_DIVERSION_RANGE);
             } else {
                 // Zone 3
-                isUnusualTime = isTimeDivertionOutOfRange(
-                        CsvInformationParser.calculateDurationForZone(
-                                entry.startTime.getTime(),
-                                entry.endTime.getTime()),
-                        entry.route.typicalTimes.timeZone3, TIME_DIVERSION_RANGE);
+                isUnusualTime = isTimeDivertionOutOfRange(CsvInformationParser.calculateDurationForZone(
+                        entry.startTime.getTime(),
+                        entry.endTime.getTime()),
+                        entry.route.typicalTimes.timeZone3, Constants.TIME_DIVERSION_RANGE);
             }
 
             if (isUnusualTime) {
-                entry.marker.add(Constants.TIME_WARNING_MARKER);
+                StringBuilder sb = new StringBuilder();
+                sb.append("(").append(entry.route.typicalTimes.timeZone1)
+                        .append("/").append(entry.route.typicalTimes.timeZone2)
+                        .append("/").append(entry.route.typicalTimes.timeZone3)
+                        .append(")");
+                entry.marker.add(Constants.TIME_WARNING_MARKER, sb.toString());
             }
         }
 
@@ -214,14 +219,18 @@ public class RouteAnalyzer {
             if (lastCounter == -1) {
                 // first entry. can't be checked
                 lastCounter = item.kmEnd;
+            } else {
+                if ((lastCounter + item.route.km) != item.kmEnd) {
+                    item.marker.add(Constants.KM_COUNTER_ERROR_MARKER,
+                            String.valueOf("{" + lastCounter + item.route.km) + "}");
+                }
+                lastCounter = item.kmEnd;
             }
-
         }
 
         return book;
     }
 
-    
     public static Map<String, String> generateRouteShortcuts(List<Route> routes) {
         Map<String, String> shortcuts = new HashMap<>();
         Map<String, Integer> directory = new HashMap<>();
@@ -235,8 +244,8 @@ public class RouteAnalyzer {
             }
         }
         // generate shortcuts
-        for (String item: directory.keySet()){
-            if (directory.get(item) > Constants.APPEARANCE_COUNT_FOR_SHORTCUT){
+        for (String item : directory.keySet()) {
+            if (directory.get(item) > Constants.APPEARANCE_COUNT_FOR_SHORTCUT) {
                 // generate shortcut name
                 // remove vocals from city name
                 // add an integer --> need directory for that
@@ -258,5 +267,17 @@ public class RouteAnalyzer {
             // new entry
             directory.put(key, value);
         }
+    }
+
+    public static RawBook checkRouteDistance(RawBook book, List<Route> knownRoutes) {
+        for (DataEntry entry : book.entrys) {
+            Route reference = knownRoutes.get(knownRoutes.indexOf(entry.route));
+            if (isDistanceDifferent(reference, entry.route)) {
+                entry.marker.add(Constants.DISTANCE_WARNING_MARKER,
+                        "{" + reference.km + "}");
+            }
+        }
+
+        return book;
     }
 }

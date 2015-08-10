@@ -5,14 +5,13 @@
 package de.jhit.fbs.csv;
 
 import com.csvreader.CsvWriter;
+import de.jhit.fbs.container.Constants;
 import de.jhit.fbs.container.DataEntry;
 import de.jhit.fbs.container.RawBook;
 import de.jhit.fbs.container.Route;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,13 +22,37 @@ import java.util.logging.Logger;
  */
 public class CsvSheetWriter {
 
-    private static final String[] QUESTION_SHEET_HEADER = {"Marker", "Start L", "End L", "Detours", "km", "Time 6-9", "Time 16-19", "Time else"};
-    private static final String[] SUGGESTION_BOOK_HEADER = {"Marker","Start Date", "End Date", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel","Consumption", "Type"};
+    private static final String[] QUESTION_SHEET_HEADER = {
+        Constants.THEADER_MARKER,
+        Constants.THEADER_LOCATION_START,
+        Constants.THEADER_LOCATION_END,
+        Constants.THEADER_LOCATION_DETOURS,
+        Constants.THEADER_KM,
+        Constants.THEADER_TIME_Z1,
+        Constants.THEADER_TIME_Z2,
+        Constants.THEADER_TIME_Z3};
+
+    private static final String[] SUGGESTION_BOOK_HEADER = {
+        Constants.THEADER_MARKER,
+        Constants.THEADER_DATE,
+        Constants.THEADER_TIME_START,
+        Constants.THEADER_TIME_END,
+        Constants.THEADER_DURATION,
+        Constants.THEADER_LOCATION_START,
+        Constants.THEADER_LOCATION_DETOURS,
+        Constants.THEADER_LOCATION_END,
+        Constants.THEADER_REASON,
+        Constants.THEADER_PERSON,
+        Constants.THEADER_KM,
+        Constants.THEADER_KM_COUNTER,
+        Constants.THEADER_FUEL,
+        Constants.THEADER_FUEL_CONSUMPTION,
+        Constants.THEADER_TYPE};
 
     public static boolean writeQuestionSheet(String pathToQuestionCsv, List<Route> questionRoutes) {
         CsvWriter cwriter = new CsvWriter(pathToQuestionCsv, ',', Charset.forName("UTF-8"));
         //Sorting
-        Collections.sort(questionRoutes,Route.getComparator());
+        Collections.sort(questionRoutes, Route.getComparator());
 
         try {
             // write header
@@ -42,7 +65,6 @@ public class CsvSheetWriter {
                 item.toCsvQuestionLine(cwriter);
                 cwriter.endRecord();
             }
-
 
             return true;
         } catch (IOException ex) {
@@ -61,8 +83,8 @@ public class CsvSheetWriter {
     }
 
     public static boolean writeSuggestedBook(String pathToSuggestionCsv, RawBook book) {
-         CsvWriter cwriter = new CsvWriter(pathToSuggestionCsv, ',', Charset.forName("UTF-8"));
-        
+        CsvWriter cwriter = new CsvWriter(pathToSuggestionCsv, ',', Charset.forName("UTF-8"));
+
         try {
             // write header
             // cant insert comments until found out how to skip them

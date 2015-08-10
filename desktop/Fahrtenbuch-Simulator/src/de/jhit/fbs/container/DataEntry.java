@@ -6,6 +6,8 @@
 package de.jhit.fbs.container;
 
 import com.csvreader.CsvWriter;
+import de.jhit.fbs.analyser.RouteAnalyzer;
+import de.jhit.fbs.csv.CsvInformationParser;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,11 +41,26 @@ public class DataEntry {
     }
 
     public CsvWriter toCsvSuggestionLine(CsvWriter writer) throws IOException {
-        // "Constants", "Start T", "End T", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel", "Type"
+        // Constants.THEADER_MARKER,
+//        Constants.THEADER_TIME_START,
+//        Constants.THEADER_TIME_END,
+//        Constants.THEADER_DURATION,
+//        Constants.THEADER_LOCATION_START,
+//        Constants.THEADER_LOCATION_DETOURS,
+//        Constants.THEADER_LOCATION_END,
+//        Constants.THEADER_REASON,
+//        Constants.THEADER_PERSON,
+//        Constants.THEADER_KM,
+//        Constants.THEADER_KM_COUNTER,
+//        Constants.THEADER_FUEL,
+//        Constants.THEADER_FUEL_CONSUMPTION,
+//        Constants.THEADER_TYPE};
         writer.write(marker.toCsvString());
-        DateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.GERMANY);
-        writer.write(dateFormatter.format(startTime));
-        writer.write(dateFormatter.format(endTime));
+        writer.write(Constants.OUTPUT_DATE_FORMATTER.format(startTime));
+        writer.write(Constants.OUTPUT_TIME_FORMATTER.format(startTime));
+        writer.write(Constants.OUTPUT_TIME_FORMATTER.format(endTime));
+        writer.write(String.valueOf(CsvInformationParser.calculateDurationForZone(
+                startTime.getTime(), endTime.getTime())));
         writer.write(route.start.toString());
         if (route.detours != null && !route.detours.isEmpty()) {
             StringBuilder sb = new StringBuilder();
@@ -65,13 +82,13 @@ public class DataEntry {
 
         switch (type) {
             case Constants.TYPE_OFFICE:
-                writer.write("office");
+                writer.write(Constants.TYPE_OFFICE_STRING);
                 break;
             case Constants.TYPE_PRIVATE:
-                writer.write("private");
+                writer.write(Constants.TYPE_PRIVATE_STRING);
                 break;
             case Constants.TYPE_WORK:
-                writer.write("work");
+                writer.write(Constants.TYPE_WORK_STRING);
                 break;
         }
 

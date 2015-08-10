@@ -19,6 +19,8 @@ public final class Constants {
     }
     // Options
     public static final int APPEARANCE_COUNT_FOR_SHORTCUT = 6;
+    public static final int TIME_DIVERSION_RANGE = 15;
+    public static final int KM_DIVERSION_RANGE = 1;
     // Type Zones
     public static final int TIME_ZONE_1 = 0;
     public static final int TIME_ZONE_2 = 1;
@@ -33,12 +35,15 @@ public final class Constants {
     // Table markers
     public static final String DETOURS_DELIMITER = ";";
     public static final String MARKER_DELIMITER = ";";
+    public static final String MARKER_VALUE_DELIMITER = ":";
     public static final String DUPLICATE_MARKER = "!-DUB";
     public static final String OTHER_VALUES_MARKER = "!-VAL";
     public static final String DB_VALUES_MARKER = "!-DB";
     public static final String SUGGESTION_MARKER = "?-SUG";
     public static final String TIME_WARNING_MARKER = "?-TIM";
     public static final String WAYPOINT_WARNING_MARKER = "?-WAY";
+    public static final String DISTANCE_WARNING_MARKER = "?-DIS";
+    public static final String KM_COUNTER_ERROR_MARKER = "!-KMC";
     // table headers
     public static final String THEADER_DATE = "Date";
     public static final String THEADER_TIME_START = "Start T";
@@ -55,6 +60,11 @@ public final class Constants {
     // extended table headers
     public static final String THEADER_MARKER = "Marker";
     public static final String THEADER_FUEL_CONSUMPTION = "Consumption";
+    public static final String THEADER_DURATION = "Duration";
+    // routing table headers
+    public static final String THEADER_TIME_Z1 = "Time 6-9";
+    public static final String THEADER_TIME_Z2 = "Time 16-19";
+    public static final String THEADER_TIME_Z3 = "Time else";
     // Date formatter
     public static final DateFormat INPUT_DATE_TIME_FORMATTER = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.GERMANY);
     public static final DateFormat OUTPUT_DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
