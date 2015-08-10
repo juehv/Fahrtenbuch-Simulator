@@ -6,168 +6,75 @@
 package de.jhit.fbs.csv;
 
 import com.csvreader.CsvReader;
-import de.jhit.fbs.analyser.RouteAnalyzer;
 import de.jhit.fbs.container.DataEntry;
 import de.jhit.fbs.container.Location;
+import de.jhit.fbs.container.Constants;
+import de.jhit.fbs.container.Marker;
 import de.jhit.fbs.container.RawBook;
 import de.jhit.fbs.container.Route;
 import de.jhit.fbs.smartcontainer.RouteTimeTable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author Jens
  */
 public class CsvInformationParser {
+    // TODO find common format and rewrite code
+    // init book = finish book format
+    // static file = question file
+    // use logger for warnings
+    // write funktion to generate empty table
+    // use header names instead of in to enable flexible tables with and without marker coloumn
 
-    private static final String COMBINED_CSV_RAW_INPUT_HEADER = "Datum,Fahrzeit von,Fahrzeit bis,Startort,Umwege,Zielort,Zweck,Besuchte Person,gefahrene km,km-Stand (ende),Tanken (L),Typ,Privat,Dienst";
-    private static final Pattern validEntry = Pattern.compile("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*");
-
-    public static RawBook parseCsvFile(String filepath)
-            throws FileNotFoundException {
-        RawBook book = new RawBook();
-        book.entrys = new ArrayList<>();
-        // read file
-        CsvReader creader = new CsvReader(filepath, ',', Charset.forName("UTF-8"));
-
-        try {
-            // validate header
-            creader.readHeaders();
-            if (!valdiateHeader(creader)) {
-                Logger.getLogger(CsvInformationParser.class.getName()).
-                        log(Level.SEVERE, "Stop parser because of unvalid header:\n{0}"
-                        + "\n valid header is:\n"
-                        + COMBINED_CSV_RAW_INPUT_HEADER, creader.getRawRecord());
-                return null;
-            }
-
-            // read entries
-            while (creader.readRecord()) {
-                DataEntry entry = parseEntry(creader);
-                if (entry != null) {
-                    book.entrys.add(entry);
-                    System.out.println(creader.getCurrentRecord() + " " + entry.toString());
-                } else {
-                    Logger.getLogger(CsvInformationParser.class.getName()).
-                            log(Level.WARNING, "Found unvalid entry: {0}",
-                            creader.getRawRecord());
-                }
-            }
-
-
-        } catch (IOException | ParseException ex) {
-            Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            creader.close();
-        }
-        return book;
-    }
-
-    private static boolean valdiateHeader(CsvReader reader) {
-        // TODO implement
-//        for (int i = 0; i < creader.getHeaderCount(); i++) {
-//            System.out.println(creader.getHeader(i));
+//    public static RawBook parseInitCsvBook(String filepath)
+//            throws FileNotFoundException {
+//        RawBook book = new RawBook();
+//        book.entrys = new ArrayList<>();
+//        // read file
+//        CsvReader creader = new CsvReader(filepath, ',', Charset.forName("UTF-8"));
+//
+//        try {
+//            // validate header
+//            creader.readHeaders();
+//            if (!CsvValidator.validateSimpleBookHeader(creader)) {
+//                Logger.getLogger(CsvInformationParser.class.getName()).
+//                        log(Level.SEVERE,
+//                                "Stop parser because of unvalid header:\n{0}",
+//                                creader.getRawRecord());
+//                return null;
+//            }
+//
+//            // read entries
+//            while (creader.readRecord()) {
+//                DataEntry entry = parseEntry(creader);
+//                if (entry != null) {
+//                    book.entrys.add(entry);
+//                    System.out.println(creader.getCurrentRecord() + " " + entry.toString());
+//                } else {
+//                    Logger.getLogger(CsvInformationParser.class.getName()).
+//                            log(Level.WARNING, "Found unvalid entry: {0}",
+//                                    creader.getRawRecord());
+//                }
+//            }
+//
+//        } catch (IOException | ParseException ex) {
+//            Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            creader.close();
 //        }
-        return true;
-    }
-
-    private static DataEntry parseEntry(CsvReader reader)
-            throws IOException, ParseException {
-        Matcher entryMatcher = validEntry.matcher(reader.getRawRecord());
-        if (entryMatcher.matches()) {
-            DataEntry entry = new DataEntry();
-            // get time
-            String date = reader.get(0);
-            String startT = reader.get(1);
-            String endT = reader.get(2);
-            DateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.GERMANY);
-            entry.startTime = format.parse(date + " " + startT);
-            entry.endTime = format.parse(date + " " + endT);
-            if (entry.endTime.before(entry.startTime)) {
-                // this drive is over midnight -> add 24 hours
-                entry.endTime.setTime(entry.endTime.getTime() + 86400000);
-            }
-            // get route
-            //TODO combine code for reading route
-            Route route = new Route();
-            route.start = new Location(reader.get(3));
-            route.end = new Location(reader.get(5));
-            route.km = Integer.parseInt(reader.get(8));
-
-            route.detours = new ArrayList<>();
-            String detoursString = reader.get(4);
-            if (!detoursString.isEmpty()) {
-                String[] detoursArray = detoursString.split(Route.DETOURS_DELIMITER);
-                for (String item : detoursArray) {
-                    if (!item.isEmpty()) {
-                        route.detours.add(new Location(item));
-                    }
-                }
-            }
-
-            entry.route = route;
-            // get time for route
-            entry.route.typicalTimes = new RouteTimeTable();
-            if (entry.startTime.getHours() >= 6
-                    && entry.startTime.getHours() <= 9) {
-                // Zone 1
-                entry.route.typicalTimes.timeZone1 = calculateDurationForZone(
-                        entry.startTime.getTime(),
-                        entry.endTime.getTime());
-            } else if (entry.startTime.getHours() >= 16
-                    && entry.startTime.getHours() <= 18) {
-                // Zone 2
-                entry.route.typicalTimes.timeZone2 = calculateDurationForZone(
-                        entry.startTime.getTime(),
-                        entry.endTime.getTime());
-            } else {
-                // Zone 3
-                entry.route.typicalTimes.timeZone3 = calculateDurationForZone(
-                        entry.startTime.getTime(),
-                        entry.endTime.getTime());
-            }
-
-            entry.reason = reader.get(6);
-            entry.person = reader.get(7);
-            entry.kmEnd = Integer.parseInt(reader.get(9));
-            entry.kmStart = entry.kmEnd - Integer.parseInt(reader.get(8));
-            switch (reader.get(11)) {
-                case "p":
-                case "P":
-                    entry.type = DataEntry.TYPE_PRIVATE;
-                    break;
-                case "d":
-                case "D":
-                    entry.type = DataEntry.TYPE_WORK;
-                    break;
-                default:
-                    Logger.getLogger(CsvInformationParser.class.getName())
-                            .warning("Unknwon Type!" + reader.get(11));
-
-            }
-            String fuelString = reader.get(10);
-            if (!fuelString.isEmpty()) {
-                entry.fuelAmount = Double.parseDouble(fuelString.replaceAll(",", "."));
-            }
-//            entry.fuelMoney; //TODO implement
-            return entry;
-        }
-        return null;
-    }
-
-    private static int calculateDurationForZone(long start, long end) {
+//        return book;
+//    }
+    //TODO move to util class
+    public static int calculateDurationForZone(long start, long end) {
         long duration = end - start;
         duration /= (1000 * 60);
         // fit to nearest 5
@@ -198,17 +105,16 @@ public class CsvInformationParser {
 
             // read entries
             while (creader.readRecord()) {
-                Route entry = parseRoute(creader);
+                Route entry = parseQuestionRoute(creader);
                 if (entry != null) {
                     updatedRoutes.add(entry);
                     System.out.println(creader.getCurrentRecord() + " " + entry.toString());
                 } else {
                     Logger.getLogger(CsvInformationParser.class.getName()).
                             log(Level.WARNING, "Found unvalid entry: {0}",
-                            creader.getRawRecord());
+                                    creader.getRawRecord());
                 }
             }
-
 
         } catch (IOException /*| ParseException*/ ex) {
             Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,13 +124,14 @@ public class CsvInformationParser {
         return updatedRoutes;
     }
 
-    private static Route parseRoute(CsvReader reader) throws IOException {
-        if (reader.get(0).equalsIgnoreCase(RouteAnalyzer.DUPLICATE_MARKER)) {
+    private static Route parseQuestionRoute(CsvReader reader) throws IOException {
+        String[] markers = reader.get(0).split(Constants.MARKER_DELIMITER);
+        if (markers != null && markers.length > 0
+                && Arrays.asList(markers).contains(Constants.DUPLICATE_MARKER)) {
             return null;
         }
 
         // TODO use regex to check format
-
         Route newEntry = new Route();
 
         newEntry.start = new Location(reader.get(1));
@@ -233,7 +140,7 @@ public class CsvInformationParser {
         newEntry.detours = new ArrayList<>();
         String detoursString = reader.get(3);
         if (!detoursString.isEmpty()) {
-            String[] detoursArray = detoursString.split(Route.DETOURS_DELIMITER);
+            String[] detoursArray = detoursString.split(Constants.DETOURS_DELIMITER);
             for (String item : detoursArray) {
                 if (!item.isEmpty()) {
                     newEntry.detours.add(new Location(item));
@@ -251,5 +158,158 @@ public class CsvInformationParser {
         newEntry.typicalTimes = times;
 
         return newEntry;
+    }
+
+    /**
+     *
+     * @param filepath
+     * @param isExtendedFormat
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static List<DataEntry> parseCsvBookEntrys(String filepath, boolean isExtendedFormat)
+            throws FileNotFoundException {
+        List<DataEntry> bookEntrys = new ArrayList<>();
+        // read file
+        CsvReader creader = new CsvReader(filepath, ',', Charset.forName("UTF-8"));
+
+        try {
+            // validate header
+            creader.readHeaders();
+            if (!CsvValidator.validateSimpleBookHeader(creader)) {
+                Logger.getLogger(CsvInformationParser.class.getName()).
+                        log(Level.SEVERE,
+                                "Stop parser because of unvalid header:\n{0}",
+                                creader.getRawRecord());
+                return null;
+            }
+            if (isExtendedFormat) {
+                if (!CsvValidator.validateBookHeaderExtentions(creader)) {
+                    Logger.getLogger(CsvInformationParser.class.getName()).
+                            log(Level.SEVERE,
+                                    "Stop parser because of missing extended header fields:\n{0}",
+                                    creader.getRawRecord());
+                    return null;
+                }
+            }
+
+            // read entries
+            while (creader.readRecord()) {
+                // check if entry is valid
+                if (CsvValidator.validateCsvEntry(creader.getRawRecord())) {
+                    DataEntry entry = new DataEntry();
+                    if (isExtendedFormat) {
+                        entry = parseExtendedFields(entry, creader);
+                        if (!CsvValidator.isMarkerValid(entry.marker)) {
+                            // skip parsing if marker says its an unvalid entry
+                            continue;
+                        }
+                    }
+                    entry = parseEntry(entry, creader);
+                    bookEntrys.add(entry);
+                    System.out.println(creader.getCurrentRecord() + " " + entry.toString());
+                } else {
+                    Logger.getLogger(CsvInformationParser.class.getName()).
+                            log(Level.WARNING, "Found unvalid entry: {0}",
+                                    creader.getRawRecord());
+                }
+            }
+
+        } catch (IOException | ParseException ex) {
+            Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            creader.close();
+        }
+        return bookEntrys;
+    }
+
+    /**
+     *
+     * @param reader
+     * @return
+     * @throws IOException
+     * @throws ParseException
+     */
+    private static DataEntry parseEntry(DataEntry entry, CsvReader reader)
+            throws IOException, ParseException {
+        // get time
+        String date = reader.get(Constants.THEADER_DATE);
+        String startT = reader.get(Constants.THEADER_TIME_START);
+        String endT = reader.get(Constants.THEADER_TIME_END);
+        entry.startTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + startT);
+        entry.endTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + endT);
+        if (entry.endTime.before(entry.startTime)) {
+            // this drive is over midnight -> add 24 hours
+            entry.endTime.setTime(entry.endTime.getTime() + 86400000);
+        }
+
+        // get route
+        entry = parseRouteEntry(entry, reader);
+
+        // get rest
+        entry.reason = reader.get(Constants.THEADER_REASON);
+        entry.person = reader.get(Constants.THEADER_PERSON);
+        entry.kmEnd = Integer.parseInt(reader.get(Constants.THEADER_KM_COUNTER));
+        switch (reader.get(Constants.THEADER_TYPE)) {
+            case Constants.TYPE_PRIVATE_STRING:
+                entry.type = Constants.TYPE_PRIVATE;
+                break;
+            case Constants.TYPE_WORK_STRING:
+                entry.type = Constants.TYPE_WORK;
+                break;
+            case Constants.TYPE_OFFICE_STRING:
+                entry.type = Constants.TYPE_OFFICE;
+                break;
+            default:
+                Logger.getLogger(CsvInformationParser.class.getName())
+                        .log(Level.WARNING, "Unknwon Type!{0}",
+                                reader.get(Constants.THEADER_TYPE));
+
+        }
+        String fuelString = reader.get(Constants.THEADER_FUEL);
+        if (!fuelString.isEmpty()) {
+            entry.fuelAmount = Double.parseDouble(fuelString.replaceAll(",", "."));
+        }
+
+        return entry;
+
+    }
+
+    /**
+     *
+     * @param entry
+     * @param reader
+     * @return
+     * @throws IOException
+     */
+    private static DataEntry parseExtendedFields(DataEntry entry, CsvReader reader) throws IOException {
+        entry.marker = Marker.fromCsvString(reader.get(Constants.THEADER_MARKER));
+        entry.fuelConsumption = Double.parseDouble(
+                reader.get(Constants.THEADER_FUEL_CONSUMPTION).replaceAll(",", "."));
+        return entry;
+    }
+
+    private static DataEntry parseRouteEntry(DataEntry entry, CsvReader reader) throws IOException {
+        Route route = new Route();
+        route.start = new Location(reader.get(3));
+        route.end = new Location(reader.get(5));
+        route.km = Integer.parseInt(reader.get(8));
+
+        route.detours = new ArrayList<>();
+        String detoursString = reader.get(4);
+        if (!detoursString.isEmpty()) {
+            String[] detoursArray = detoursString.split(Constants.DETOURS_DELIMITER);
+            for (String item : detoursArray) {
+                if (!item.isEmpty()) {
+                    route.detours.add(new Location(item));
+                }
+            }
+        }
+
+        entry.route = route;
+        // init dummy route table for later
+        entry.route.typicalTimes = new RouteTimeTable();
+
+        return entry;
     }
 }

@@ -6,10 +6,10 @@
 package de.jhit.fbs.container;
 
 import com.csvreader.CsvWriter;
-import static de.jhit.fbs.container.Route.DETOURS_DELIMITER;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -19,29 +19,28 @@ import java.util.Locale;
  */
 public class DataEntry {
 
-    public static final int TYPE_PRIVATE = 0;
-    public static final int TYPE_OFFICE = 1;
-    public static final int TYPE_WORK = 2;
-    public String marker = "";
+    // TODO change marker to a list
+    public Marker marker = new Marker();
     public Date startTime;
     public Date endTime;
     public Route route;
     public String reason;
     public String person;
-    public int kmStart;
     public int kmEnd;
     public int type;
+
+    public int fuelKmAmount;
     public double fuelAmount;
-    public double fuelMoney;
+    public double fuelConsumption;
 
     @Override
     public String toString() {
-        return "DataEntry{" + "startTime=" + startTime + ", endTime=" + endTime + ", route=" + route + ", reason=" + reason + ", person=" + person + ", kmStart=" + kmStart + ", kmEnd=" + kmEnd + ", type=" + type + ", fuelAmount=" + fuelAmount + ", fuelMoney=" + fuelMoney + '}';
+        return "DataEntry{" + "startTime=" + startTime + ", endTime=" + endTime + ", route=" + route + ", reason=" + reason + ", person=" + person + ", kmEnd=" + kmEnd + ", type=" + type + ", fuelAmount=" + fuelAmount + '}';
     }
 
     public CsvWriter toCsvSuggestionLine(CsvWriter writer) throws IOException {
-        // "Marker", "Start T", "End T", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel", "Type"
-        writer.write(marker);
+        // "Constants", "Start T", "End T", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel", "Type"
+        writer.write(marker.toCsvString());
         DateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.GERMANY);
         writer.write(dateFormatter.format(startTime));
         writer.write(dateFormatter.format(endTime));
@@ -49,7 +48,7 @@ public class DataEntry {
         if (route.detours != null && !route.detours.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (Location item : route.detours) {
-                sb.append(item.toString()).append(DETOURS_DELIMITER);
+                sb.append(item.toString()).append(Constants.DETOURS_DELIMITER);
             }
             writer.write(sb.toString());
         } else {
@@ -62,19 +61,29 @@ public class DataEntry {
         writer.write(String.valueOf(route.km));
         writer.write(String.valueOf(kmEnd));
         writer.write(String.valueOf(fuelAmount));
+        writer.write(String.valueOf(fuelConsumption));
 
         switch (type) {
-            case TYPE_OFFICE:
+            case Constants.TYPE_OFFICE:
                 writer.write("office");
                 break;
-            case TYPE_PRIVATE:
+            case Constants.TYPE_PRIVATE:
                 writer.write("private");
                 break;
-            case TYPE_WORK:
+            case Constants.TYPE_WORK:
                 writer.write("work");
                 break;
         }
 
         return writer;
+    }
+
+    public static Comparator<DataEntry> getComparator() {
+        return new Comparator<DataEntry>() {
+            @Override
+            public int compare(DataEntry a, DataEntry b) {
+                return a.startTime.compareTo(b.startTime);
+            }
+        };
     }
 }

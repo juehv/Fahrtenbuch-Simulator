@@ -1,0 +1,24 @@
+Marker,Start L,End L,Detours,km,Time 6-9,Time 16-19,Time else
+"","DA, Pankratiusstraße",Bockenheim,,60,0,0,0
+"","DA, Pankratiusstraße","DA, Pankratiusstraße","DA, Poststr.;",2,0,0,0
+"","DA, Pankratiusstraße","DA, Pankratiusstraße",FFM;,71,0,0,0
+"","DA, Pankratiusstraße","DA, Pankratiusstraße","MZ, Alter Mainzer Str.;",81,0,0,0
+"","DA, Pankratiusstraße","LA, Ernst-Ludwig-Straße",,42,0,0,0
+"","DA, Pankratiusstraße","MA, Augustaanlage",,67,0,0,0
+"","DA, Pankratiusstraße","MZ, Am Gonsenheimer Spieß",,45,0,0,0
+"","DA, Pankratiusstraße","Mehlingen, Schulstr.",,97,0,0,0
+"","DA, Pankratiusstraße","Wo, Am Gallborn",,47,0,0,0
+"","DA, Pankratiusstraße","Wo, Rheinstr.",,47,0,0,0
+"","DA, Pankratiusstraße","Wo, Scheidtstr.",,47,0,0,0
+"","LA, Ernst-Ludwig-Straße","LA, Ernst-Ludwig-Straße","Mö, Weinbergstr.;",48,0,0,0
+"","Messel, Darmstädter Str.","Mö, Weinbergstr.","DA, Poststr.;",69,0,0,0
+"","Mö, Weinbergstr.","DA, Pankratiusstraße",,78,0,0,0
+"","Mö, Weinbergstr.","DA, Poststr.",,78,0,0,0
+"","Mö, Weinbergstr.","Hanau, Nürnberger Str.",,105,0,0,0
+"","Mö, Weinbergstr.","Messel, Darmstädter Str.",,88,0,0,0
+"","Mö, Weinbergstr.","Mö, Weinbergstr.","Wo, Rheinstr.;",29,0,0,0
+"","Mö, Weinbergstr.","WO, Kirche",,15,0,0,0
+"","Mö, Weinbergstr.","Wo, Am Gallborn",,13,0,0,0
+"",Ruchheim,"Mö, Weinbergstr.",,29,0,0,0
+"","WO, Kirche","DA, Pankratiusstraße",,47,0,0,0
+"","Wo, Rheinstr.","Wo, Rheinstr.","Mö, Weinbergstr.;",32,0,0,0

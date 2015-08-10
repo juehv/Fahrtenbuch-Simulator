@@ -24,30 +24,12 @@ import java.util.logging.Logger;
 public class CsvSheetWriter {
 
     private static final String[] QUESTION_SHEET_HEADER = {"Marker", "Start L", "End L", "Detours", "km", "Time 6-9", "Time 16-19", "Time else"};
-    private static final String[] SUGGESTION_BOOK_HEADER = {"Marker","Start Date", "End Date", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel", "Type"};
+    private static final String[] SUGGESTION_BOOK_HEADER = {"Marker","Start Date", "End Date", "Start L", "Detours","End L","Reason","Person",  "km", "km Counter (end)", "Fuel","Consumption", "Type"};
 
     public static boolean writeQuestionSheet(String pathToQuestionCsv, List<Route> questionRoutes) {
         CsvWriter cwriter = new CsvWriter(pathToQuestionCsv, ',', Charset.forName("UTF-8"));
         //Sorting
-        Collections.sort(questionRoutes, new Comparator<Route>() {
-            @Override
-            public int compare(Route a, Route b) {
-                int result = a.start.point.compareTo(b.start.point);
-                if (result == 0) {
-                    result = a.end.point.compareTo(b.end.point);
-                    if (result == 0
-                            && (a.detours != null && b.detours != null)
-                            && a.detours.size() != b.detours.size()) {
-                        if (a.detours.size() > b.detours.size()) {
-                            result = -1;
-                        } else {
-                            result = 1;
-                        }
-                    }
-                }
-                return result;
-            }
-        });
+        Collections.sort(questionRoutes,Route.getComparator());
 
         try {
             // write header

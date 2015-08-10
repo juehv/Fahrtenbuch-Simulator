@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -37,7 +38,7 @@ public class HtmlPrinter {
     public static final String GASAMOUNT_TAG = "<--! !!GASAMOUNT!! -->";
     public static final String GASMONEY_TAG = "<--! !!GASMONEY!! -->";
 
-    public void print(List<VisualizationEntry> entrys) throws UnsupportedEncodingException, IOException {
+    public void printFullBook(List<VisualizationEntry> entrys) throws UnsupportedEncodingException, IOException {
         StringBuilder template = new StringBuilder();
         StringBuilder content = new StringBuilder();
 
@@ -97,5 +98,9 @@ public class HtmlPrinter {
 
         // write file
         Files.write(tmpFile, template.toString().getBytes(), StandardOpenOption.CREATE);
+    }
+
+    public void printHandwriteBook(List<VisualizationEntry> convertEntrys, Map<String, String> shortcuts) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -7,7 +7,7 @@ package de.jhit.fbs.container;
 import com.csvreader.CsvWriter;
 import de.jhit.fbs.smartcontainer.RouteTimeTable;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,9 +16,9 @@ import java.util.Objects;
  * @author Jens
  */
 public class Route {
-    public static final String DETOURS_DELIMITER = ";";
 
-    public String marker = "";
+    public Marker marker = new Marker();
+    public int appearanceCount = 1;
     public Location start;
     public Location end;
     public List<Location> detours;
@@ -60,13 +60,13 @@ public class Route {
     }
 
     public CsvWriter toCsvQuestionLine(CsvWriter writer) throws IOException {
-        writer.write(marker);
+        writer.write(marker.toCsvString());
         writer.write(start.toString());
         writer.write(end.toString());
         if (detours != null && !detours.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (Location item : detours) {
-                sb.append(item.toString()).append(DETOURS_DELIMITER);
+                sb.append(item.toString()).append(Constants.DETOURS_DELIMITER);
             }
             writer.write(sb.toString());
         } else {
@@ -79,6 +79,29 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Route{" + "marker=" + marker + ", start=" + start + ", end=" + end + ", detours=" + detours + ", km=" + km + ", typicalTimes=" + typicalTimes + '}';
+        return "Route{" + "marker=" + marker.toCsvString() + ", start=" + start + ", end=" + end + ", detours=" + detours + ", km=" + km + ", typicalTimes=" + typicalTimes + '}';
     }
+
+    public static Comparator<Route> getComparator() {
+        return new Comparator<Route>() {
+            @Override
+            public int compare(Route a, Route b) {
+                int result = a.start.point.compareTo(b.start.point);
+                if (result == 0) {
+                    result = a.end.point.compareTo(b.end.point);
+                    if (result == 0
+                            && (a.detours != null && b.detours != null)
+                            && a.detours.size() != b.detours.size()) {
+                        if (a.detours.size() > b.detours.size()) {
+                            result = -1;
+                        } else {
+                            result = 1;
+                        }
+                    }
+                }
+                return result;
+            }
+        };
+    }
+
 }

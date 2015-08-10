@@ -5,6 +5,7 @@
  */
 package de.jhit.fbs.ztests;
 
+import de.jhit.fbs.analyser.FuelAnalyzer;
 import de.jhit.fbs.analyser.RouteAnalyzer;
 import de.jhit.fbs.container.RawBook;
 import de.jhit.fbs.container.Route;
@@ -13,6 +14,7 @@ import de.jhit.fbs.generators.WayLengthRandomizer;
 import de.jhit.fbs.csv.CsvInformationParser;
 import de.jhit.fbs.csv.CsvSheetWriter;
 import de.jhit.fbs.view.HtmlPrinter;
+import de.jhit.fbs.view.PrintableEntryFactory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -31,7 +33,7 @@ public class Task {
         entrys.add(new VisualizationEntry());
         entrys.add(new VisualizationEntry());
 
-        new HtmlPrinter().print(entrys);
+        new HtmlPrinter().printFullBook(entrys);
 
         //TODO add visualization to write down by hand (no private times or routes, use handwritten font)
     }
@@ -48,14 +50,20 @@ public class Task {
 
     public static void testValidation() throws Exception {
         // read csv fahrtenbuch
-        RawBook book = CsvInformationParser.parseCsvFile("./test.csv");
+        RawBook book = new RawBook();
+        book.entrys = CsvInformationParser.parseCsvBookEntrys("./test.csv", false);
+        if (book.entrys == null) {
+            // Parser exits with error
+            JOptionPane.showMessageDialog(null, "Error while reading file");
+            System.exit(-1);
+        }
         // read old static file for old answers
         List<Route> knownRoutes = CsvInformationParser.parseStaticFile("./static.csv");
         // analyse route
-        List<Route> questionRoutes = RouteAnalyzer.returnSingleRoutesForQuestions(book, knownRoutes);
+        List<Route> questionRoutes = RouteAnalyzer.returnSingleRoutesForQuestions(book.getRoutes(), knownRoutes);
         // write new questions
         if (!CsvSheetWriter.writeQuestionSheet("./questions.csv", questionRoutes)) {
-            JOptionPane.showMessageDialog(null, "Error while writing questions file");
+            JOptionPane.showMessageDialog(null, "Error while writing questions file", "", JOptionPane.ERROR_MESSAGE);
             System.exit(-1);
         }
         // inform user
@@ -64,28 +72,57 @@ public class Task {
         questionRoutes = CsvInformationParser.parseAnsweredQuestionsFile("./questions.csv");
         knownRoutes.addAll(questionRoutes);
         // update known routes
-        CsvSheetWriter.writeNewStaticFile("./static.csv", knownRoutes);
+        if (!CsvSheetWriter.writeNewStaticFile("./static.csv", knownRoutes)) {
+            JOptionPane.showMessageDialog(null, "Error while writing db", "",
+                    JOptionPane.WARNING_MESSAGE);
+        }
         // update route in book
         book = RouteAnalyzer.updateRoutes(book, knownRoutes);
+        // check if drive times are correct. add warning marker if not.
+        book = RouteAnalyzer.checkRouteTimes(book);
+        // check if wayoints are without gabs. add warning marker if not.
+        book = RouteAnalyzer.checkRouteWaypoints(book);
         // analyze fuel consumption
-
-        // analyze waypoints (a->b b->c c->b ohne lücken)
-
-        // reason analyzer (just for work: rf ohne hin fahrt, post ohne grund, kundenbesuch ohne grund ohne kunde --> schlagwörter analyse)
-
+        book = FuelAnalyzer.calculateFuelConsumption(book);
+        book = FuelAnalyzer.calculateMissingInformation(book, 5, 8);
         // write suggestion book for review
-        CsvSheetWriter.writeSuggestedBook("./suggestion.csv", book);
+        if (!CsvSheetWriter.writeSuggestedBook("./suggestion.csv", book)) {
+            JOptionPane.showMessageDialog(null, "Error while writing questions file",
+                    "", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
         // inform user
-        JOptionPane.showMessageDialog(null, "I think we know what you mean.\n"
-                + "Please review the book and click ok if done.", "", JOptionPane.INFORMATION_MESSAGE);
-        // read new book and restart (until no suggestions are nessesary or user force it)
+        JOptionPane.showMessageDialog(null, "I think I know what you mean.\n"
+                + "Please review the book and click ok if done.", "",
+                JOptionPane.INFORMATION_MESSAGE);
+        // read new book
+        book.entrys = CsvInformationParser.parseCsvBookEntrys("./suggestion.csv", true);
+        if (book.entrys == null) {
+            // Parser exits with error
+            JOptionPane.showMessageDialog(null, "Error while reading file", "",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
+        // ask for recheck if yes restart
+        int result = JOptionPane.showConfirmDialog(null,
+                "Processing done. Recheck everything?", "", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            //TODO restart
+        }// else continue
+        // analyse for short terms (more than 6 time a waypoint)
+        book.shortcuts = RouteAnalyzer.generateRouteShortcuts(book.getRoutes());
+        // visualize full information book
+        new HtmlPrinter().printFullBook(PrintableEntryFactory.convertEntrys(book.entrys));
+        // visualize write down book and shortcut table
+        new HtmlPrinter().printHandwriteBook(PrintableEntryFactory.convertEntrys(book.entrys), book.shortcuts);
 
         // visualize full information book and write down book and inform user for private/office/work kilometer
         // for write down book generate short term for routes with more than 3 entrys
-
         // step 2
         // read targets
         // check if target points fit (kundenrechnungen, parktickets, tankticket, werkstatt)
+        // step 3
+        // reason analyzer (just for work: rf ohne hin fahrt, post ohne grund, kundenbesuch ohne grund ohne kunde --> schlagwörter analyse)
     }
 
     public static void testSimpleGenerator() throws Exception {
