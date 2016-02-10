@@ -92,7 +92,7 @@ public class CsvInformationParser {
             return null;
         }
 
-        // TODO use regex to check format
+        // TODO use regex to check format and find empty lines
         Route newEntry = new Route();
 
         newEntry.start = new Location(reader.get(1));
