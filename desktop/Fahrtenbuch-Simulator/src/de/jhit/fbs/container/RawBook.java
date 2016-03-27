@@ -4,6 +4,7 @@
  */
 package de.jhit.fbs.container;
 
+import de.jhit.fbs.target.BasicTarget;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class RawBook {
 
     public List<DataEntry> entrys;
+    public List<BasicTarget> targets;
     public Map<String, String> shortcuts;
 
     public List<Route> getRoutes() {

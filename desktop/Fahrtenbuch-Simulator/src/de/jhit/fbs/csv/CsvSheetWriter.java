@@ -47,7 +47,9 @@ public class CsvSheetWriter {
         Constants.THEADER_KM_COUNTER,
         Constants.THEADER_FUEL,
         Constants.THEADER_FUEL_CONSUMPTION,
-        Constants.THEADER_TYPE};
+        Constants.THEADER_TYPE,
+        Constants.THEADER_SYSTEM_COMMENT
+    };
 
     public static boolean writeQuestionSheet(String pathToQuestionCsv, List<Route> questionRoutes) {
         CsvWriter cwriter = new CsvWriter(pathToQuestionCsv, ',', Charset.forName("UTF-8"));
@@ -57,6 +59,7 @@ public class CsvSheetWriter {
         try {
             // write header
             // cant insert comments until found out how to skip them
+            //TODO write comments for better understanding of marker
 //            cwriter.writeComment("Please fill the table.");
 //            cwriter.writeComment("Values marked with \"!!-\" are duplicates with different values. Please remove the wrong one.");
             cwriter.writeRecord(QUESTION_SHEET_HEADER);

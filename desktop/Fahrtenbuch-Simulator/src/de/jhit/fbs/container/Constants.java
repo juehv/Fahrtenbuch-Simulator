@@ -44,6 +44,10 @@ public final class Constants {
     public static final String WAYPOINT_WARNING_MARKER = "?-WAY";
     public static final String DISTANCE_WARNING_MARKER = "?-DIS";
     public static final String KM_COUNTER_ERROR_MARKER = "!-KMC";
+    public static final String TARGET_ERROR_MARKER = "!-TGE";
+    public static final String TARGET_WARNING_MARKER = "?-TGW";
+    public static final String TARGET_MISSING_MARKER = "!-TGM";
+    public static final String TARGET_FUEL_WARNING_MARKER = "!-TGF";
     // table headers
     public static final String THEADER_DATE = "Date";
     public static final String THEADER_TIME_START = "Start T";
@@ -57,6 +61,7 @@ public final class Constants {
     public static final String THEADER_KM_COUNTER = "km Counter (end)";
     public static final String THEADER_FUEL = "Fuel";
     public static final String THEADER_TYPE = "Type";
+    public static final String THEADER_SYSTEM_COMMENT = "System Comment";
     // extended table headers
     public static final String THEADER_MARKER = "Marker";
     public static final String THEADER_FUEL_CONSUMPTION = "Consumption";
@@ -69,5 +74,14 @@ public final class Constants {
     public static final DateFormat INPUT_DATE_TIME_FORMATTER = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.GERMANY);
     public static final DateFormat OUTPUT_DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
     public static final DateFormat OUTPUT_TIME_FORMATTER = new SimpleDateFormat("HH:mm", Locale.GERMANY);
+    // Target Types
+    public static final int TARGET_TYPE_BASIC = 0;
+    public static final int TARGET_TYPE_FUEL = 1;
+    public static final int TARGET_TYPE_KM_COUNTER = 2;
+    public static final int TARGET_TYPE_REASONED = 3;
+    public static final String TARGET_TYPE_BASIC_STRING = "BSC";
+    public static final String TARGET_TYPE_FUEL_STRING = "FUL";
+    public static final String TARGET_TYPE_KM_COUNTER_STRING = "CNT";
+    public static final String TARGET_TYPE_REASONED_STRING = "RSN";
 
 }

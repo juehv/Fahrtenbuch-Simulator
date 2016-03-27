@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -26,7 +25,7 @@ public class CsvValidator {
      * ist present (and it is no comment because the silly lib cant do that for
      * me -.-)
      */
-    private static final Pattern validEntry = Pattern.compile("^[^#]*\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*");
+    private static final Pattern VALID_ENTRY = Pattern.compile("^[^#]*\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*,.*");
 
     public static boolean validateSimpleBookHeader(CsvReader reader) throws IOException {
         boolean result = true;
@@ -55,7 +54,7 @@ public class CsvValidator {
     }
 
     public static boolean validateCsvEntry(String entryLine) {
-        return validEntry.matcher(entryLine).matches();
+        return VALID_ENTRY.matcher(entryLine).matches();
     }
 
     public static boolean isMarkerValid(Marker marker) {
@@ -63,4 +62,18 @@ public class CsvValidator {
                 || marker.contains(Constants.SUGGESTION_MARKER));
     }
 
+    public static boolean validateTargetsHeader(CsvReader reader) throws IOException {
+        boolean result = true;
+        Set<String> header = new TreeSet<>(Arrays.asList(reader.getHeaders()));
+        result &= header.contains(Constants.THEADER_DATE);
+        result &= header.contains(Constants.THEADER_TIME_START);
+        result &= header.contains(Constants.THEADER_TIME_END);
+        result &= header.contains(Constants.THEADER_KM_COUNTER);
+        result &= header.contains(Constants.THEADER_LOCATION_START);
+        result &= header.contains(Constants.THEADER_REASON);
+        result &= header.contains(Constants.THEADER_PERSON);
+        result &= header.contains(Constants.THEADER_FUEL);
+        result &= header.contains(Constants.THEADER_TYPE);
+        return result;
+    }
 }

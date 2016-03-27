@@ -4,10 +4,13 @@
  */
 package de.jhit.fbs.target;
 
+import de.jhit.fbs.container.Location;
+import java.util.Date;
+
 /**
  *
  * @author Jens
  */
-public class HomeBase {
-    
+public class FuelTarget extends BasicTarget{
+    public double fuelAmount;
 }

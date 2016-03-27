@@ -12,6 +12,10 @@ import de.jhit.fbs.container.Constants;
 import de.jhit.fbs.container.Marker;
 import de.jhit.fbs.container.Route;
 import de.jhit.fbs.smartcontainer.RouteTimeTable;
+import de.jhit.fbs.target.BasicTarget;
+import de.jhit.fbs.target.FuelTarget;
+import de.jhit.fbs.target.KmCounterTarget;
+import de.jhit.fbs.target.ReasonedTarget;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -290,6 +294,110 @@ public class CsvInformationParser {
             default:
                 throw new IllegalStateException("PROGRAMMIERFEHLER");
         }
+
+        return entry;
+    }
+
+    public static List<BasicTarget> parseCsvTargetEntrys(String filepath)
+            throws FileNotFoundException {
+        List<BasicTarget> bookEntrys = new ArrayList<>();
+        // read file
+        CsvReader creader = new CsvReader(filepath, ',', Charset.forName("UTF-8"));
+
+        try {
+            // validate header
+            creader.readHeaders();
+            if (!CsvValidator.validateTargetsHeader(creader)) {
+                Logger.getLogger(CsvInformationParser.class.getName()).
+                        log(Level.SEVERE,
+                                "Stop parser because of unvalid header:\n{0}",
+                                creader.getRawRecord());
+                return null;
+            }
+
+            // read entries
+            while (creader.readRecord()) {
+                // check if entry is valid
+//                if (CsvValidator.validateCsvEntry(creader.getRawRecord())) {                    
+                BasicTarget entry = parseTargetsEntry(creader);
+                bookEntrys.add(entry);
+                System.out.println(creader.getCurrentRecord() + " " + entry.toString());
+//                } else {
+//                    Logger.getLogger(CsvInformationParser.class.getName()).
+//                            log(Level.WARNING, "Found unvalid entry: {0}",
+//                                    creader.getRawRecord());
+//                }
+            }
+
+        } catch (IOException | ParseException ex) {
+            Logger.getLogger(CsvInformationParser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            creader.close();
+        }
+        return bookEntrys;
+    }
+
+    private static BasicTarget parseTargetsEntry(CsvReader reader)
+            throws IOException, ParseException {
+        String typeString = reader.get(Constants.THEADER_TYPE).toUpperCase();
+        BasicTarget entry;
+        switch (typeString) {
+            case Constants.TARGET_TYPE_BASIC_STRING:
+                entry = new BasicTarget();
+                entry.type = Constants.TARGET_TYPE_BASIC;
+                break;
+
+            case Constants.TARGET_TYPE_FUEL_STRING:
+                FuelTarget tmpF = new FuelTarget();
+                tmpF.type = Constants.TARGET_TYPE_FUEL;
+                String fuelString = reader.get(Constants.THEADER_FUEL);
+                if (!fuelString.isEmpty()) {
+                    tmpF.fuelAmount = Double.parseDouble(fuelString.replaceAll(",", "."));
+                }
+                entry = tmpF;
+                break;
+
+            case Constants.TARGET_TYPE_REASONED_STRING:
+                ReasonedTarget tmpR = new ReasonedTarget();
+                tmpR.type = Constants.TARGET_TYPE_REASONED;
+                tmpR.reason = reader.get(Constants.THEADER_REASON);
+                tmpR.person = reader.get(Constants.THEADER_PERSON);
+
+                entry = tmpR;
+                break;
+
+            case Constants.TARGET_TYPE_KM_COUNTER_STRING:
+                KmCounterTarget tmpK = new KmCounterTarget();
+                tmpK.type = Constants.TARGET_TYPE_KM_COUNTER;
+                tmpK.reason = reader.get(Constants.THEADER_REASON);
+                tmpK.person = reader.get(Constants.THEADER_PERSON);
+                tmpK.kmEnd = Integer.parseInt(reader.get(Constants.THEADER_KM_COUNTER));
+                entry = tmpK;
+                break;
+
+            default:
+                entry = new BasicTarget();
+                entry.type = Constants.TARGET_TYPE_BASIC;
+                Logger.getLogger(CsvInformationParser.class.getName()).warning("Unknown type: " + typeString + " use BASIC");
+                break;
+        }
+
+        String date = reader.get(Constants.THEADER_DATE);
+        String startT = reader.get(Constants.THEADER_TIME_START);
+        String endT = reader.get(Constants.THEADER_TIME_END);
+
+        entry.startTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + startT);
+        if (endT.isEmpty()) {
+            entry.endTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + startT);
+        } else {
+            entry.endTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + endT);
+        }
+        if (entry.endTime.before(entry.startTime)) {
+            // this drive is over midnight -> add 24 hours
+            entry.endTime.setTime(entry.endTime.getTime() + 86400000);
+        }
+
+        entry.location = new Location(reader.get(Constants.THEADER_LOCATION_START));
 
         return entry;
     }

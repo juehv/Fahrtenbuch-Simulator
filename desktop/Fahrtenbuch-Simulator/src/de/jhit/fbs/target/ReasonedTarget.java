@@ -8,6 +8,7 @@ package de.jhit.fbs.target;
  *
  * @author Jens
  */
-public class OfficeBase {
-    
+public class ReasonedTarget extends BasicTarget{
+    public String reason;
+    public String person;
 }

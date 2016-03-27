@@ -7,6 +7,7 @@ package de.jhit.fbs.ztests;
 
 import de.jhit.fbs.analyser.FuelAnalyzer;
 import de.jhit.fbs.analyser.RouteAnalyzer;
+import de.jhit.fbs.analyser.TargetAnalyzer;
 import de.jhit.fbs.container.RawBook;
 import de.jhit.fbs.container.Route;
 import de.jhit.fbs.container.VisualizationEntry;
@@ -33,7 +34,7 @@ public class Task {
         entrys.add(new VisualizationEntry());
         entrys.add(new VisualizationEntry());
 
-        new HtmlPrinter().printFullBook(entrys,"./tmp.html");
+        new HtmlPrinter().printFullBook(entrys, "./tmp.html");
 
         //TODO add visualization to write down by hand (no private times or routes, use handwritten font)
     }
@@ -57,6 +58,33 @@ public class Task {
             JOptionPane.showMessageDialog(null, "Error while reading file");
             System.exit(-1);
         }
+        // read targets
+        book.targets = CsvInformationParser.parseCsvTargetEntrys("./targets.csv");
+        if (book.targets == null) {
+            // Parser exits with error
+            JOptionPane.showMessageDialog(null, "Error while reading file");
+            System.exit(-1);
+        }
+        // create missing entrys from targets
+        book = TargetAnalyzer.matchTargetsToBook(book);
+        if (!CsvSheetWriter.writeSuggestedBook("./target_book.csv", book)) {
+            JOptionPane.showMessageDialog(null, "Error while writing target book file",
+                    "", JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
+        // inform user
+        JOptionPane.showMessageDialog(null, "I matched the targets.\n"
+                + "Please review the book and click ok if done.", "",
+                JOptionPane.INFORMATION_MESSAGE);
+        // read new book
+        book.entrys = CsvInformationParser.parseCsvBookEntrys("./suggestion.csv", true);
+        if (book.entrys == null) {
+            // Parser exits with error
+            JOptionPane.showMessageDialog(null, "Error while reading file", "",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
+        }
+        
         // read old static file for old answers
         List<Route> knownRoutes = CsvInformationParser.parseStaticFile("./static.csv");
         // analyse route
@@ -116,7 +144,7 @@ public class Task {
         // analyse for short terms (more than 6 time a waypoint)
         book.shortcuts = RouteAnalyzer.generateRouteShortcuts(book.getRoutes());
         // visualize full information book
-        new HtmlPrinter().printFullBook(PrintableEntryFactory.convertEntrys(book.entrys),"./tmp.html");
+        new HtmlPrinter().printFullBook(PrintableEntryFactory.convertEntrys(book.entrys), "./tmp.html");
         // visualize write down book and shortcut table
 //        new HtmlPrinter().printHandwriteBook(PrintableEntryFactory.convertEntrys(book.entrys), book.shortcuts);
 

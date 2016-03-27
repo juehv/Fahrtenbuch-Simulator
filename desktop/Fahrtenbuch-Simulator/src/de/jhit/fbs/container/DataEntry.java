@@ -6,14 +6,10 @@
 package de.jhit.fbs.container;
 
 import com.csvreader.CsvWriter;
-import de.jhit.fbs.analyser.RouteAnalyzer;
 import de.jhit.fbs.csv.CsvInformationParser;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  *
@@ -21,7 +17,6 @@ import java.util.Locale;
  */
 public class DataEntry {
 
-    // TODO change marker to a list
     public Marker marker = new Marker();
     public Date startTime;
     public Date endTime;
@@ -34,6 +29,8 @@ public class DataEntry {
     public int fuelKmAmount;
     public double fuelAmount;
     public double fuelConsumption;
+    
+    public String systemComment = "";
 
     @Override
     public String toString() {
@@ -41,20 +38,6 @@ public class DataEntry {
     }
 
     public CsvWriter toCsvSuggestionLine(CsvWriter writer) throws IOException {
-        // Constants.THEADER_MARKER,
-//        Constants.THEADER_TIME_START,
-//        Constants.THEADER_TIME_END,
-//        Constants.THEADER_DURATION,
-//        Constants.THEADER_LOCATION_START,
-//        Constants.THEADER_LOCATION_DETOURS,
-//        Constants.THEADER_LOCATION_END,
-//        Constants.THEADER_REASON,
-//        Constants.THEADER_PERSON,
-//        Constants.THEADER_KM,
-//        Constants.THEADER_KM_COUNTER,
-//        Constants.THEADER_FUEL,
-//        Constants.THEADER_FUEL_CONSUMPTION,
-//        Constants.THEADER_TYPE};
         writer.write(marker.toCsvString());
         writer.write(Constants.OUTPUT_DATE_FORMATTER.format(startTime));
         writer.write(Constants.OUTPUT_TIME_FORMATTER.format(startTime));
@@ -92,6 +75,8 @@ public class DataEntry {
                 break;
         }
 
+        writer.write(systemComment);
+        
         return writer;
     }
 
