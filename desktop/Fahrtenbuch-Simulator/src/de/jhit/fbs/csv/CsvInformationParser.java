@@ -201,6 +201,12 @@ public class CsvInformationParser {
         String date = reader.get(Constants.THEADER_DATE);
         String startT = reader.get(Constants.THEADER_TIME_START);
         String endT = reader.get(Constants.THEADER_TIME_END);
+        if (startT == null || startT.isEmpty()){
+            startT = "0:00";
+        }
+        if (endT == null || endT.isEmpty()){
+            endT = "0:00";
+        }
         entry.startTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + startT);
         entry.endTime = Constants.INPUT_DATE_TIME_FORMATTER.parse(date + " " + endT);
         if (entry.endTime.before(entry.startTime)) {

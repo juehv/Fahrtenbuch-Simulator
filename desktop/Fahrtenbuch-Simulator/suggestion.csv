@@ -1,60 +1,144 @@
-Marker,Date,Start T,End T,Duration,Start L,Detours,End L,Reason,Person,km,km Counter (end),Fuel,Consumption,Type
-?-SUG;,02.01.2015,14:40,14:40,0,,,,SUGGESTION,MISSING FUEL,0,0,14.9,0.0,P
-"",02.01.2015,14:50,15:25,35,"DA, Pankratiusstraße",,"Wo, Rheinstr.",Tanken,,47,129157,49.0,4.98,W
-"",15.11.2015,14:30,14:51,20,Ruchheim,,"Mö, Weinbergstr.",Überführung,,29,125751,0.0,0.0,W
-"",17.11.2015,16:00,17:32,90,"Mö, Weinbergstr.",,"Messel, Darmstädter Str.","KB, Installation",Sommer,88,125839,0.0,0.0,W
-?-SUG;,17.11.2015,18:23,18:23,0,,,,SUGGESTION,MISSING KM,633,0,0.0,0.0,P
-"",17.11.2015,18:33,19:46,70,"Messel, Darmstädter Str.","DA, Poststr.;","Mö, Weinbergstr.",Rückfahrt + Post(Paket abholen),"""",69,125908,53.24,28.62,W
-"",20.11.2015,08:00,08:55,55,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,78,125986,0.0,0.0,P
-"",20.11.2015,17:30,18:08,35,"DA, Pankratiusstraße","DA, Poststr.;","DA, Pankratiusstraße",Post(Paket abholen),,2,125988,0.0,0.0,W
-"",21.11.2015,22:11,22:57,45,"DA, Pankratiusstraße",,"MZ, Am Gonsenheimer Spieß",Privat,,45,126033,0.0,0.0,P
-"",22.11.2015,01:52,02:47,55,"MZ, Am Gonsenheimer Spieß",,"DA, Pankratiusstraße",Privat,,46,126079,0.0,0.0,P
-"",23.11.2015,19:18,20:35,75,"DA, Pankratiusstraße",FFM;,"DA, Pankratiusstraße",Privat,,71,126150,0.0,0.0,P
-"",23.11.2015,22:10,23:05,55,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Privat,,77,126227,0.0,0.0,P
-"",27.11.2015,16:15,17:15,60,"Mö, Weinbergstr.",,"DA, Poststr.",Post(Paket abholen),,78,126305,0.0,0.0,W
-"",27.11.2015,17:45,18:00,15,"DA, Poststr.",,"Mö, Weinbergstr.",rf,,78,126383,0.0,0.0,W
-?-SUG;,29.11.2015,13:35,13:35,0,,,,SUGGESTION,MISSING FUEL,0,0,16.9,0.0,P
-"",29.11.2015,13:45,14:30,45,"Mö, Weinbergstr.","Wo, Rheinstr.;","Mö, Weinbergstr.",Tanken,,29,126412,15.86,3.15,W
-?-DIS:{88};,30.11.2015,10:40,12:18,95,"Mö, Weinbergstr.",,"Messel, Darmstädter Str.","KB, Wartung Station",Sommer,95,126507,0.0,0.0,W
-"",30.11.2015,14:34,16:00,85,"Messel, Darmstädter Str.",,"Mö, Weinbergstr.",Rückfahrt,,87,126594,0.0,0.0,W
-"",30.11.2015,20:00,20:42,40,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,77,126671,0.0,0.0,P
-"",01.12.2015,19:06,20:20,70,"DA, Pankratiusstraße",,"Mehlingen, Schulstr.","KB, Wartung Server",Dißmann,97,126768,0.0,0.0,W
-"",01.12.2015,20:56,22:13,75,"Mehlingen, Schulstr.",,"DA, Pankratiusstraße",Rückfahrt,,96,126864,0.0,0.0,W
-"",02.12.2015,17:38,18:40,60,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Privat,,77,126941,0.0,0.0,P
-"",03.12.2015,17:00,18:24,80,"Mö, Weinbergstr.",,"Hanau, Nürnberger Str.","KB, Wartung Drucker",Söylemetz,105,127046,0.0,0.0,W
-?-DIS:{105};,03.12.2015,19:57,21:11,70,"Hanau, Nürnberger Str.",,"Mö, Weinbergstr.",Rückfahrt,,109,127155,0.0,0.0,W
-"",04.12.2015,07:15,08:30,75,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,77,127232,0.0,0.0,P
-"",04.12.2015,17:35,18:15,40,"DA, Pankratiusstraße","MZ, Alter Mainzer Str.;","DA, Pankratiusstraße",Ersatzteilbeschaffung,Marc Diehl,81,127313,0.0,0.0,W
-"",04.12.2015,21:00,21:40,40,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Privat,,78,127391,0.0,0.0,P
-?-SUG;,05.12.2015,15:25,15:25,0,,,,SUGGESTION,MISSING FUEL,0,0,35.26,0.0,P
-"",05.12.2015,15:35,16:01,25,"Mö, Weinbergstr.",,"Wo, Am Gallborn",Tanken + ATU Radwechsel,,13,127404,29.22,2.95,W
-"",05.12.2015,17:58,18:41,40,"Wo, Am Gallborn",,"Mö, Weinbergstr.",Rückfahrt,,12,127416,0.0,0.0,W
-?-TIM:(0/0/55);?-DIS:{78};,05.12.2015,20:35,21:05,30,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,95,127511,0.0,0.0,P
-"",06.12.2015,13:54,14:28,30,"DA, Pankratiusstraße",,"Wo, Am Gallborn",ATU Reifenwechsel,,47,127558,0.0,0.0,W
-?-DIS:{13};,06.12.2015,15:45,16:20,35,"Wo, Am Gallborn",,"Mö, Weinbergstr.",RF + Tanken,,16,127574,11.4,6.71,W
-?-TIM:(0/0/55);,06.12.2015,20:10,20:45,35,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,77,127651,0.0,0.0,P
-"",08.12.2015,18:15,19:00,45,"DA, Pankratiusstraße",,"Wo, Am Gallborn",ATU Schrauben nachziehen,,47,127698,0.0,0.0,W
-"",08.12.2015,19:45,20:25,40,"Wo, Am Gallborn",,"DA, Pankratiusstraße",RF,,47,127745,0.0,0.0,W
-"",09.12.2015,18:45,20:35,110,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Privat,,77,127822,0.0,0.0,P
-"",12.12.2015,07:15,08:30,75,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,77,127899,0.0,0.0,P
-"",13.12.2015,19:23,20:00,35,"DA, Pankratiusstraße",,"MA, Augustaanlage","KB, Wartung Software",Wirth,67,127966,0.0,0.0,W
-"",13.12.2015,23:21,00:11,50,"MA, Augustaanlage",,"DA, Pankratiusstraße",Rückfahrt,,67,128033,0.0,0.0,W
-"",19.12.2015,17:20,18:10,50,"DA, Pankratiusstraße",,"Wo, Scheidtstr.",Privat,,47,128080,0.0,0.0,P
-"",19.12.2015,22:10,23:00,50,"Wo, Scheidtstr.",,"DA, Pankratiusstraße",Privat,,47,128127,0.0,0.0,P
-"",20.12.2015,15:10,16:00,50,"DA, Pankratiusstraße",,"Wo, Rheinstr.",Tanken,,47,128174,34.3,5.72,W
-"",20.12.2015,16:00,20:30,270,"Wo, Rheinstr.","Mö, Weinbergstr.;","Wo, Rheinstr.",Privat,,32,128206,0.0,0.0,P
-?-TIM:(0/0/50);,20.12.2015,20:30,21:00,30,"Wo, Rheinstr.",,"DA, Pankratiusstraße",Rückfahrt,,47,128253,0.0,0.0,W
-"",21.12.2015,14:00,14:46,45,"DA, Pankratiusstraße",,"LA, Ernst-Ludwig-Straße","KB, Beratung Stationsupdate",Lewitzki,42,128295,0.0,0.0,W
-"",21.12.2015,15:10,18:10,180,"LA, Ernst-Ludwig-Straße","Mö, Weinbergstr.;","LA, Ernst-Ludwig-Straße",Privat,,48,128343,0.0,0.0,P
-"",21.12.2015,18:10,18:55,45,"LA, Ernst-Ludwig-Straße",,"DA, Pankratiusstraße",Rückfahrt,,42,128385,0.0,0.0,W
-"",24.12.2015,16:00,16:40,40,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Privat,,77,128462,0.0,0.0,P
-"",24.12.2015,20:30,20:55,25,"Mö, Weinbergstr.",,"WO, Kirche",Privat,,15,128477,0.0,0.0,P
-"",24.12.2015,22:30,23:15,45,"WO, Kirche",,"DA, Pankratiusstraße",Privat,,47,128524,0.0,0.0,P
-"",25.12.2015,16:30,17:15,45,"DA, Pankratiusstraße",,Bockenheim,Privat,,60,128584,0.0,0.0,P
-"",25.12.2015,23:30,00:30,60,Bockenheim,,"DA, Pankratiusstraße",Privat,,60,128644,0.0,0.0,P
-"",26.12.2015,14:00,14:45,45,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Privat,,77,128721,0.0,0.0,P
-"",29.12.2015,18:00,19:10,70,"Mö, Weinbergstr.",,"DA, Poststr.",Post(Paket abholen),,77,128798,0.0,0.0,W
-"",29.12.2015,20:10,21:00,50,"DA, Poststr.",,"Mö, Weinbergstr.",Rückfahrt,,77,128875,0.0,0.0,W
-"",30.12.2015,09:20,10:20,60,"Mö, Weinbergstr.",,"Messel, Darmstädter Str.","KB, Installation",Sommer,88,128963,0.0,0.0,W
-?-TIM:(0/0/90);?-DIS:{88};,30.12.2015,12:00,13:00,60,"Messel, Darmstädter Str.",,"Mö, Weinbergstr.",Rückfahrt,,70,129033,0.0,0.0,W
-"",31.12.2015,12:15,12:55,40,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Privat,,77,129110,0.0,0.0,P
+Marker,Date,Start T,End T,Duration,Start L,Detours,End L,Reason,Person,km,km Counter (end),Fuel,Consumption,Type,System Comment
+?-WAY;,02.01.2015,00:00,00:00,0,,,,Privat,,78,129235,0.0,0.0,P,
+?-WAY;,02.01.2015,14:50,15:25,35,"DA, Pankratiusstraße",,"Wo, Am Rhein",Tanken,,47,129157,49.0,104.26,W,
+?-WAY;,09.01.2015,14:20,16:40,140,"Mö, Weinbergstr.","Da, Poststr.;","Mö, Weinbergstr.",Post,,154,129389,0.0,0.0,W,
+,10.01.2015,00:00,00:00,0,"Mehlingen, Schulstr.",,"DA, Pankratiusstraße",Rückfahrt,,111,129554,0.0,0.0,W,
+,10.01.2015,00:00,00:00,0,"MA, Augustaanlage",,"DA, Pankratiusstraße",Rückfahrt,,58,129670,0.0,0.0,W,
+,10.01.2015,11:15,11:55,40,"Mö, Weinbergstr.",,"Mehlingen, Schulstr.","Kundenbesuch,  Wartung",Dissmann,54,129443,0.0,0.0,W,
+,10.01.2015,18:40,19:20,40,"DA, Pankratiusstraße",,"MA, Augustaanlage","Kundenbesuch,  Backup",Wirth,58,129612,0.0,0.0,W,
+,13.01.2015,18:10,18:35,25,"DA, Pankratiusstraße","DA, Poststr.;","DA, Pankratiusstraße",Post,,4,129674,0.0,0.0,W,
+?-WAY;,19.01.2015,19:45,20:50,65,"DA, Pankratiusstraße","DA, Rheinstr.;","Mö, Weinbergstr.",Tanken,,78,129752,29.53,4.96,W,
+?-WAY;,23.01.2015,00:00,00:00,0,,,,Privat,,77,129829,0.0,0.0,P,
+,30.01.2015,00:00,00:00,0,Frankenthal,,"DA, Pankratiusstraße",Rückfahrt,,59,129947,0.0,0.0,W,
+?-WAY;,30.01.2015,16:25,17:15,50,"DA, Pankratiusstraße",,Frankenthal,"Kundenbesuch,  Erstgespräch",Unternehmensberatung,59,129888,0.0,0.0,W,
+?-WAY;?-DIS:{111};,01.02.2015,00:00,00:00,0,"Mehlingen, Schulstr.",,"DA, Pankratiusstraße",Rückfahrt,,97,130141,0.0,0.0,W,
+?-DIS:{111};,01.02.2015,15:30,16:45,75,"DA, Pankratiusstraße",,"Mehlingen, Schulstr.","Kundenbesuch,  Wartung",Dissmann,97,130044,0.0,0.0,W,
+?-WAY;?-DIS:{78};,03.02.2015,00:00,00:00,0,,,,Privat,,70,130211,0.0,0.0,P,
+?-WAY;,03.02.2015,17:55,19:30,95,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Post,,78,130289,0.0,0.0,W,
+?-TIM:(0/0/95);?-DIS:{78};,06.02.2015,19:25,20:10,45,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Tanken,,76,130365,52.0,8.48,W,
+,07.02.2015,08:35,08:55,20,"DA, Pankratiusstraße",,"DA, Otto-Röhm-Straße",Inspektion ATU,130369,4,130369,0.0,0.0,W,
+?-WAY;,07.02.2015,15:55,16:50,55,"DA, Otto-Röhm-Straße",,"Mö, Weinbergstr.",Rückfahrt,,77,130446,0.0,0.0,W,
+?-WAY;?-DIS:{78};,08.02.2015,00:00,00:00,0,,,,Privat,,44,130490,0.0,0.0,P,
+?-WAY;?-DIS:{78};,09.02.2015,00:00,00:00,0,,,,Privat,,45,130535,0.0,0.0,P,
+?-WAY;?-DIS:{78};,11.02.2015,00:00,00:00,0,,,,Privat,,6,130618,0.0,0.0,P,
+?-WAY;,11.02.2015,07:00,08:15,75,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Post,,77,130612,0.0,0.0,W,
+?-WAY;,11.02.2015,18:45,19:40,55,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Rückfahrt,,79,130697,0.0,0.0,W,
+?-WAY;,12.02.2015,00:00,00:00,0,,,,Privat,,77,130774,0.0,0.0,P,
+?-WAY;,12.02.2015,16:30,21:45,315,"DA, Pankratiusstraße",,"München, Konrad-Zuse-Platz",Anreise Hotel,Haupt,439,131213,0.0,0.0,W,
+,12.02.2015,22:30,23:00,30,"München, Konrad-Zuse-Platz",,"Garching, Bürgerplatz",Treffen mit Betreuer vor Ort,Holling,25,131238,0.0,0.0,W,
+,12.02.2015,23:45,00:10,25,"Garching, Bürgerplatz",,"München, Konrad-Zuse-Platz",Rückfahrt Hotel,,24,131262,0.0,0.0,W,
+,13.02.2015,09:10,09:30,20,"München, Konrad-Zuse-Platz",,"Müchnen, Unsöldstr.","Kundenbesuch,  Serverinstallation",Haupt,9,131271,0.0,0.0,W,
+,13.02.2015,14:00,16:00,120,"Müchnen, Unsöldstr.",,"Freilassing, Heideweg","Kundenbesuch,  Internetwartung",Ponn,139,131410,51.0,4.88,W,
+,13.02.2015,17:30,19:00,90,"Freilassing, Heideweg",,"München, Konrad-Zuse-Platz",Rückfahrt Hotel,,128,131538,0.0,0.0,W,
+,14.02.2015,10:00,15:30,330,"München, Konrad-Zuse-Platz",,"DA, Pankratiusstraße",Rückfahrt,Haupt/Ponn,440,131978,0.0,0.0,W,
+,14.02.2015,16:30,17:05,35,"DA, Pankratiusstraße","DA, Ruedesheimer Str.;","DA, Pankratiusstraße",Autowäsche,,3,131981,0.0,0.0,W,
+,01.03.2015,16:35,17:05,30,"DA, Pankratiusstraße","WO, Mainzer Str.;","Mö, Weinbergstr.",Tanken,,60,132041,59.89,9.49,W,
+,03.03.2015,17:15,18:05,50,"Mö, Weinbergstr.",,"Da, Schuchardstr.",Kundenbesuch/Erstgespräch,Krutsch,77,132118,0.0,0.0,W,
+?-TIM:(0/0/50);,03.03.2015,19:45,20:05,20,"Da, Schuchardstr.",,"Mö, Weinbergstr.",Rückfahrt,,77,132195,0.0,0.0,W,
+?-DIS:{78};,21.03.2015,17:00,18:05,65,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Tanken,,59,132254,23.87,11.21,W,
+,24.03.2015,17:35,19:05,90,"DA, Pankratiusstraße",,"Mö, Weinbergstr.",Post,,79,132333,0.0,0.0,W,
+,01.04.2015,07:25,08:30,65,"Mö, Weinbergstr.",,"Da, Schuchardstr.","Kundenbesuch,  Hardware anlieferung",Krutsch,77,132410,0.0,0.0,W,
+,01.04.2015,18:35,19:30,55,"Da, Schuchardstr.",,"Mö, Weinbergstr.",Rückfahrt,,77,132487,0.0,0.0,W,
+,03.04.2015,16:35,17:15,40,"Mö, Weinbergstr.",,"Mz, Alte Mainzer Str",Dienstbesprechung,M. Diehl,52,132539,0.0,0.0,W,
+,03.04.2015,21:20,22:00,40,"Mz, Alte Mainzer Str",,"DA, Pankratiusstraße",Rückfahrt,,1,132540,0.0,0.0,W,
+,07.04.2015,10:55,12:00,65,"Messel, Darmstädter Str.",,"Mö, Weinbergstr.",Rückfahrt,,87,132636,0.0,0.0,W,
+,07.04.2015,11:05,11:30,25,"DA, Pankratiusstraße",,"Messel, Darmstädter Str.","Kundenbesuch,  HW Austausch",Sommer,9,132549,0.0,0.0,W,
+,07.04.2015,17:00,18:00,60,"Mö, Weinbergstr.",,"Mz, Gonsenheimer Spieß","Kundenbesuch, HW Installation",Rave,56,132692,0.0,0.0,W,
+?-TIM:(0/0/60);,07.04.2015,19:05,19:45,40,"Mz, Gonsenheimer Spieß",,"Mö, Weinbergstr.",Rückfahrt,,55,132747,0.0,0.0,W,
+,08.04.2015,17:00,18:00,60,"Mö, Weinbergstr.",,"Heidelberg, Schwetzinger Str.","Kundenbesuch, Beratung Domainpacket",Oestreicher,60,132807,0.0,0.0,W,
+,08.04.2015,20:05,20:55,50,"Heidelberg, Schwetzinger Str.",,"Mö, Weinbergstr.",Rückfahrt,,60,132867,0.0,0.0,W,
+,14.04.2015,18:15,19:00,45,"Mö, Weinbergstr.",,"WO, Scheidtstr.","Kundenbesuch, Domainberatung",TSC Worms,13,132880,0.0,0.0,W,
+?-TIM:(0/0/45);,14.04.2015,20:05,20:20,15,"WO, Scheidtstr.",,"Mö, Weinbergstr.",Rückfahrt,,14,132894,0.0,0.0,W,
+,16.04.2015,14:25,15:15,50,"Mö, Weinbergstr.",,"Da, Schuchardstr.","Kundenbesuch,  Software abholen",Krutsch,77,132971,0.0,0.0,W,
+,16.04.2015,15:50,16:40,50,"Da, Schuchardstr.",,"Mö, Weinbergstr.",Rückfahrt,,77,133048,0.0,0.0,W,
+,17.04.2015,09:40,10:25,45,"Mö, Weinbergstr.",,"Da, Schuchardstr.","Kundenbesuch,  Installation",Krutsch,77,133125,0.0,0.0,W,
+,17.04.2015,19:15,20:00,45,"Da, Schuchardstr.",,"Mö, Weinbergstr.",Rückfahrt,,77,133202,0.0,0.0,W,
+,20.04.2015,15:30,16:10,40,"Mö, Weinbergstr.",,"Grünstadt, Asselheimer Str.","Kundenbesuch, Wartung",Heil,28,133230,0.0,0.0,W,
+?-WAY;,20.04.2015,16:30,16:55,25,"Grünstadt, Asselheimer Str.",,"Mö, Weinbergstr.",Rückfahrt,,28,133258,0.0,0.0,W,
+?-WAY;,22.04.2015,00:00,00:00,0,,,,Privat,parken,78,133336,0.0,0.0,P,
+?-DIS:{78};,24.04.2015,00:00,00:00,0,,,,Privat,,6,133342,0.0,0.0,P,
+?-WAY;?-DIS:{78};,24.04.2015,00:00,00:00,0,,,,Tanken / Privat,700-1050 / 52,6,133348,52.41,4.79,W,
+?-DIS:{78};,24.04.2015,00:00,00:00,0,,,,Privat,,18,133998,0.0,0.0,P,
+?-WAY;,27.04.2015,07:00,08:05,65,"Mö, Weinbergstr.",,"DA, Pankratiusstraße",Anfahrt Darmstadt wegen Kundenbesuch,,77,133425,0.0,0.0,W,
+,27.04.2015,15:50,16:15,25,"DA, Pankratiusstraße",,"DA, Pankratiusstraße","Kundenbesuch,  Installation",Krutsch,3,133428,0.0,0.0,W,
+,27.04.2015,17:25,17:45,20,"DA, Pankratiusstraße",,"DA, Pankratiusstraße",Rückfahrt,,3,133431,0.0,0.0,W,
+?-TIM:(0/0/20);?-WAY;,02.05.2015,11:30,12:25,55,"DA, Pankratiusstraße",,"DA, Pankratiusstraße",Autowäsche,,4,133435,0.0,0.0,W,
+?-WAY;,04.05.2015,00:00,00:00,0,,,,Privat,,77,133512,0.0,0.0,P,
+?-WAY;,08.05.2015,16:25,16:45,20,"Mö, Weinbergstr.",,"Wo, Am Gallborn",Radwechsel ATU,133525,13,133525,0.0,0.0,W,
+,08.05.2015,17:45,18:30,45,"Wo, Am Gallborn",,"Mö, Weinbergstr.",Rückfahrt,,13,133538,24.88,13.09,W,
+?-WAY;,15.05.2015,16:05,19:35,210,"Mö, Weinbergstr.","Trebur, Hessenauer Straße;","Mö, Weinbergstr.",Einlagern von Akten und Lagerware,,138,133676,0.0,0.0,W,
+?-WAY;?-DIS:{78};,16.05.2015,00:00,00:00,0,,,,Privat,,44,133720,0.0,0.0,P,
+?-WAY;?-DIS:{78};,18.05.2015,00:00,00:00,0,,,,Privat,,45,133765,0.0,0.0,P,
+?-WAY;,22.05.2015,16:25,19:55,210,"Mö, Weinbergstr.","Trebur, Hessenauer Straße;","Mö, Weinbergstr.",Einlagern von Akten und Lagerware,,138,133903,0.0,0.0,W,
+?-WAY;,23.05.2015,00:00,00:00,0,,,,Privat,,77,133980,33.35,7.55,P,
+,25.05.2015,00:00,00:00,0,,,,Privat,,77,134075,0.0,0.0,P,
+,26.05.2015,00:00,00:00,0,,,,Privat,,77,134152,15.21,8.84,P,
+?-DIS:{78};,26.05.2015,00:00,00:00,0,,,,Privat,,36,134188,0.0,0.0,P,
+?-WAY;,26.05.2015,00:00,00:00,0,,,,Privat,,77,134265,8.27,7.32,P,
+?-WAY;,28.05.2015,00:00,00:00,0,,,,Privat,,77,134480,0.0,0.0,P,
+?-WAY;,28.05.2015,16:00,20:00,240,"Mö, Weinbergstr.","Trebur, Hessenauer Straße;","Mö, Weinbergstr.",Einlagern von Akten und Lagerware,,138,134403,0.0,0.0,W,
+?-DIS:{78};,29.05.2015,00:00,00:00,0,,,,Privat,,154,134634,0.0,0.0,P,
+,30.05.2015,00:00,00:00,0,,,,Privat,,77,134711,38.77,8.69,P,
+?-WAY;,31.05.2015,00:00,00:00,0,,FR;,,Privat,,837,135548,32.12,3.84,P,
+?-DIS:{78};,04.06.2015,00:00,00:00,0,,,,Privat,,18,137463,0.0,0.0,P,
+?-WAY;,13.06.2015,14:30,23:15,525,"Cambridge, The Foodpath",,"Mö, Weinbergstr.",Anfahrt Mörstadt wegen Kundengesprächen,,837,136385,0.0,0.0,W,
+,14.06.2015,14:50,15:25,35,"Mö, Weinbergstr.",,"Mz, Alte Mainzer Str",Dienstbesprechung,M. Diehl,52,136437,0.0,0.0,W,
+,14.06.2015,16:20,16:40,20,"Mz, Alte Mainzer Str",,"Mz, Gonsenheimer Spieß","Kundenbesuch, Wartung",Rave,7,136444,0.0,0.0,W,
+,14.06.2015,17:05,18:00,55,"Mz, Gonsenheimer Spieß",,"Lampertheim, In den Rheinlüssen","Kundenbesuch, Beratung",Gricic,83,136527,0.0,0.0,W,
+?-WAY;,14.06.2015,20:00,06:30,630,"Lampertheim, In den Rheinlüssen",,"Cambridge, The Foodpath",Rückfahrt nach Cambridge,,838,137365,0.0,0.0,W,
+?-WAY;?-DIS:{78};,20.06.2015,00:00,00:00,0,,,,Privat,,34,137399,0.0,0.0,P,
+?-DIS:{78};,27.06.2015,00:00,00:00,0,,,,Privat,,46,137445,0.0,0.0,P,
+,06.07.2015,00:00,00:00,0,,UK;,,Privat,,46,137509,46.59,2.38,P,
+?-DIS:{78};,07.07.2015,00:00,00:00,0,,,,Privat,,34,137543,0.0,0.0,P,
+?-DIS:{78};,11.07.2015,00:00,00:00,0,,,,Privat,,46,137589,0.0,0.0,P,
+?-DIS:{78};,14.07.2015,00:00,00:00,0,,,,Privat,,46,137635,0.0,0.0,P,
+?-DIS:{78};,18.07.2015,00:00,00:00,0,,,,Privat,,35,137670,0.0,0.0,P,
+?-DIS:{78};,22.07.2015,00:00,00:00,0,,,,Privat,,168,137838,0.0,0.0,P,
+?-DIS:{46};,24.07.2015,00:00,00:00,0,,UK;,,Privat,,66,137904,32.2,8.15,P,
+?-DIS:{78};,25.07.2015,00:00,00:00,0,,,,Privat,,87,137991,0.0,0.0,P,
+?-DIS:{78};,30.07.2015,00:00,00:00,0,,,,Privat,,187,138178,0.0,0.0,P,
+?-WAY;?-DIS:{78};,02.08.2015,00:00,00:00,0,,,,Privat,,46,138224,0.0,0.0,P,
+?-WAY;,03.08.2015,00:00,00:00,0,UK,,,Privat,,215,138439,42.53,7.95,P,
+?-WAY;?-DIS:{78};,04.08.2015,00:00,00:00,0,,,,Privat,,188,138627,0.0,0.0,P,
+?-WAY;?-DIS:{215};,15.08.2015,00:00,00:00,0,UK,,,Privat,,187,138814,26.66,7.11,P,
+?-WAY;?-DIS:{78};,17.08.2015,00:00,00:00,0,,,,Privat,,88,138902,0.0,0.0,P,
+?-WAY;?-DIS:{215};,18.08.2015,00:00,00:00,0,UK,,,Privat,,201,139103,25.56,8.84,P,
+?-WAY;?-DIS:{215};,20.08.2015,00:00,00:00,0,UK,,,Privat,,226,139329,22.01,9.74,P,
+?-WAY;,28.08.2015,00:00,00:00,0,"Monsheim, Robert-Bosch-Str.",,,Privat,,837,140166,53.67,6.41,P,
+!-KMC:{14040728};?-WAY;?-DIS:{59};,01.09.2015,09:45,09:25,1420,"Mö, Weinbergstr.","WO, Am Rhein;","Mö, Weinbergstr.",Tankfahrt,,28,140571,39.2,14.57,W,
+?-WAY;,02.09.2015,00:00,00:00,0,,,,Privat,,77,140648,0.0,0.0,P,
+?-DIS:{78};,03.09.2015,00:00,00:00,0,,,,Privat,,247,140895,0.0,0.0,P,
+,04.09.2015,00:00,00:00,0,,,,Privat,,77,140972,0.0,0.0,P,
+?-WAY;,04.09.2015,00:00,00:00,0,,,,Privat,,77,141049,0.0,0.0,P,
+?-WAY;,04.09.2015,19:55,20:30,35,"Mö, Weinbergstr.",,"MZ, Alte Mainzer Str.",Gespräch zum weiteren Vorgehen,Marc Diehl,52,141101,0.0,0.0,W,
+,05.09.2015,01:35,02:00,25,"MZ, Alte Mainzer Str.",,"Mö, Weinbergstr.",Rückfahrt,,52,141153,0.0,0.0,W,
+?-WAY;?-DIS:{59};,05.09.2015,09:35,10:10,35,"Mö, Weinbergstr.","WO, Am Rhein;","Mö, Weinbergstr.",Privat,,28,141181,52.2,8.56,P,
+?-WAY;,07.09.2015,00:00,00:00,0,,"LU, Ludwigsplatz;",,Privat,,104,141285,0.0,0.0,P,
+?-WAY;,07.09.2015,13:25,14:30,65,"DA, Pankratiusstraße",,"Westhofen, Lydia-Bootz-Ring",Steuerberatung,Rauberger,58,141343,0.0,0.0,W,
+?-TIM:(0/0/65);,07.09.2015,15:45,15:40,1435,"Westhofen, Lydia-Bootz-Ring",,"DA, Pankratiusstraße",Rückfahrt,,59,141402,0.0,0.0,W,
+?-WAY;,07.09.2015,15:45,16:35,50,"DA, Pankratiusstraße","WO, Am Rhein;","Mö, Weinbergstr.",Tanken,,59,141461,26.43,9.44,W,
+?-WAY;?-DIS:{78};,08.09.2015,00:00,00:00,0,,,,Privat,,154,141615,0.0,0.0,P,
+?-DIS:{78};,09.09.2015,00:00,00:00,0,,,,Privat,,154,141769,0.0,0.0,P,
+?-DIS:{78};,10.09.2015,00:00,00:00,0,,,,Privat,,154,141923,0.0,0.0,P,
+?-DIS:{78};,11.09.2015,00:00,00:00,0,,,,Privat,,154,142077,0.0,0.0,P,
+,12.09.2015,00:00,00:00,0,,"DA, Grafenstr.;",,Privat,,266,142343,0.0,0.0,P,
+,14.09.2015,00:00,00:00,0,,,,Privat,,77,142420,0.0,0.0,P,
+,15.09.2015,00:00,00:00,0,,,,Privat,,77,142497,0.0,0.0,P,
+,19.09.2015,00:00,00:00,0,,,,Privat,,77,142574,0.0,0.0,P,
+?-WAY;,21.09.2015,00:00,00:00,0,,,,Privat,,77,142651,0.0,0.0,P,
+?-WAY;,29.09.2015,17:00,18:00,60,"DA, Pankratiusstraße","Mö, Weinbergstr.;","WO,Willy Brandt Ring",Software-Wartung,Stiefel,88,142739,0.0,0.0,W,
+?-WAY;,29.09.2015,17:30,18:35,65,"Mö, Weinbergstr.",,"Trebur, Hessenauer Straße",Auslagern von Akten und Lagerware,,69,140235,0.0,0.0,W,
+?-WAY;,29.09.2015,18:30,19:45,75,"WO,Willy Brandt Ring",,"DA, Pankratiusstraße",Rückfahrt,Stiefel,47,142786,0.0,0.0,W,
+?-WAY;,29.09.2015,20:00,21:00,60,"Trebur, Hessenauer Straße",,"Mö, Weinbergstr.",Rückfahrt,,68,140303,0.0,0.0,W,
+?-WAY;?-DIS:{78};,30.09.2015,00:00,00:00,0,,,,Privat,,104,140407,0.0,0.0,P,
+?-WAY;,11.11.2015,00:00,00:00,0,,,,Privat,,77,142863,0.0,0.0,P,
+?-WAY;,12.11.2015,08:40,09:40,60,"DA, Pankratiusstraße","Mö, Weinbergstr.;","WO,Willy Brandt Ring",Fritzbox auslieferung,Stiefel,89,142952,0.0,0.0,W,
+?-TIM:(0/0/75);?-WAY;,12.11.2015,10:35,11:15,40,"WO,Willy Brandt Ring",,"DA, Pankratiusstraße",Rückfahrt,Stiefel,47,142999,0.0,0.0,W,
+?-WAY;?-DIS:{78};,22.11.2015,00:00,00:00,0,,,,Privat,,84,143083,0.0,0.0,P,
+?-WAY;?-DIS:{13};,25.11.2015,09:35,10:00,25,"Mö, Weinbergstr.",,"WO, Am Gallborn",ATU Räderwechsel,143094,11,143094,0.0,0.0,W,
+?-DIS:{13};,25.11.2015,10:55,11:20,25,"WO, Am Gallborn",,"Mö, Weinbergstr.",Rückfahrt,,11,143105,0.0,0.0,W,
+,11.12.2015,17:15,18:00,45,"Mö, Weinbergstr.",,"Wackernheim, Im Schneckenbangert",HW Auslieferung & Beratung,Repovs,55,143314,0.0,0.0,W,
+?-WAY;,11.12.2015,20:00,20:40,40,"Wackernheim, Im Schneckenbangert",,"Mö, Weinbergstr.",Rückfahrt,,55,143369,0.0,0.0,W,
+?-WAY;?-DIS:{78};,24.12.2015,00:00,00:00,0,,,,Privat,,36,143405,0.0,0.0,P,
+,26.12.2015,00:00,00:00,0,,,,Privat,,77,143482,0.0,0.0,P,
+,26.11.2016,16:05,19:15,190,"Mö, Weinbergstr.","DA, Otto-Röhm-Str.;","Mö, Weinbergstr.",ATU Radeinlagerung,,154,143259,0.0,0.0,W,

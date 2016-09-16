@@ -1,21 +1,8 @@
 Type,Start L,Date,Start T,End T,km Counter (end),Fuel,Person,Reason
-RSN,"Freilassing, Heideweg",13.02.2015,16:00,17:30,,,Ponn,Fritzbox Reparatur
-RSN,"Müchnen, Maximilianstr.",13.03.2015,14:30,15:00,,,Roessler,Serverinstallation
-RSN,"Mainz, Gonsenheimer Spieß",07.04.2015,18:00,19:00,,,Rave,HW Installation
-RSN,"Müchnen, Unsöldstr.",13.02.2015,09:30,14:00,,,Haupt,Serverinstallation
-RSN,"Lampertheim, In den Rheinlüssen",14.06.2015,18:00,20:00,,,Gricic,Beratungsgespräch
-RSN,"DA, Schuchardstr.",01.04.2015,08:45,09:15,,,Krutsch,Auslieferung
-RSN,"DA, Schuchardstr.",16.04.2015,16:30,02:00,,,Krutsch,Installation + Mittagspause ?
-RSN,"DA, Schuchardstr.",17.04.2015,10:30,19:00,,,Krutsch,Installation + Mittagspause ?
-RSN,"WO,Willy Brandt Ring",12.11.2015,09:45,10:30,,,Stiefel,Fritzbox auslieferung
-RSN,"Grünstadt, Asselheimer Str.",20.04.2015,16:15,16:30,,,Heil,Tastaturproblem
-RSN,"Messel, Darmstädter Str.",07.04.2015,10:45,11:30,,,Sommer,HW Austausch
-RSN,"Heidelberg, Schwetzinger Str.",08.04.2015,18:00,20:00,,,Oestreicher,Beratung zum Domainpaket
-RSN,"WO, Scheidtstr.",14.04.2015,19:00,,,,TSC Worms,Domain Beratung
-RSN,"Wackernheim, Im Schneckenbangert",11.12.2015,18:00,20:00,,,Repovs,HW Auslieferung & Beratung
-CNT,"DA, Otto-Röhm-Str.",07.02.2015,14:40,15:40,130369,,ATU,Inspektion
 RSN,"Westhofen, Lydia-Bootz-Ring",07.09.2015,15:30,16:30,,,Rauberger,Steuerberatung
-CNT,"WO, Am Gallborn",08.05.2015,16:30,17:45,133525,,ATU,Radwechsel & Reparatur
+RSN,"WO,Willy Brandt Ring",29.09.2015,18:00,18:30,,,Stiefel,Software-Wartung
+RSN,"WO,Willy Brandt Ring",12.11.2015,09:45,10:30,,,Stiefel,Fritzbox auslieferung
+RSN,"Wackernheim, Im Schneckenbangert",11.12.2015,18:00,20:00,,,Repovs,HW Auslieferung & Beratung
 FUL,UK,06.07.2015,19:00,,,"46,59",,
 FUL,UK,24.07.2015,16:05,,,"32,2",,
 BSC,UK,07.07.2015,09:30,15:15,,,,
@@ -57,5 +44,3 @@ FUL,"WO, Am Rhein",26.05.2015,16:02,,,"15,21",,
 FUL,"Monsheim, Robert-Bosch-Str.",28.08.2015,08:30,,,"53,67",,
 FUL,"WO, Am Rhein",07.09.2015,16:10,,,"26,43",,
 FUL,"WO, Am Rhein",01.09.2015,10:00,,,"39,2",,
-RSN,"Da, Schuchardstr.",16.04.2015,15:15,15:45,,,Krutsch,Software-Abholung
-RSN,"WO,Willy Brandt Ring",29.09.2015,18:00,18:30,,,Stiefel,Software-Wartung

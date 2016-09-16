@@ -59,32 +59,32 @@ public class Task {
             System.exit(-1);
         }
         // read targets
-        book.targets = CsvInformationParser.parseCsvTargetEntrys("./targets.csv");
-        if (book.targets == null) {
-            // Parser exits with error
-            JOptionPane.showMessageDialog(null, "Error while reading file");
-            System.exit(-1);
-        }
-        // create missing entrys from targets
-        book = TargetAnalyzer.matchTargetsToBook(book);
-        if (!CsvSheetWriter.writeSuggestedBook("./target_book.csv", book)) {
-            JOptionPane.showMessageDialog(null, "Error while writing target book file",
-                    "", JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
-        }
-        // inform user
-        JOptionPane.showMessageDialog(null, "I matched the targets.\n"
-                + "Please review the book and click ok if done.", "",
-                JOptionPane.INFORMATION_MESSAGE);
-        // read new book
-        book.entrys = CsvInformationParser.parseCsvBookEntrys("./suggestion.csv", true);
-        if (book.entrys == null) {
-            // Parser exits with error
-            JOptionPane.showMessageDialog(null, "Error while reading file", "",
-                    JOptionPane.ERROR_MESSAGE);
-            System.exit(-1);
-        }
-        
+//        book.targets = CsvInformationParser.parseCsvTargetEntrys("./targets.csv");
+//        if (book.targets == null) {
+//            // Parser exits with error
+//            JOptionPane.showMessageDialog(null, "Error while reading file");
+//            System.exit(-1);
+//        }
+//        // create missing entrys from targets
+//        book = TargetAnalyzer.matchTargetsToBook(book);
+//        if (!CsvSheetWriter.writeSuggestedBook("./target_book.csv", book)) {
+//            JOptionPane.showMessageDialog(null, "Error while writing target book file",
+//                    "", JOptionPane.ERROR_MESSAGE);
+//            System.exit(-1);
+//        }
+//        // inform user
+//        JOptionPane.showMessageDialog(null, "I matched the targets.\n"
+//                + "Please review the book and click ok if done.", "",
+//                JOptionPane.INFORMATION_MESSAGE);
+//        // read new book
+//        book.entrys = CsvInformationParser.parseCsvBookEntrys("./suggestion.csv", true);
+//        if (book.entrys == null) {
+//            // Parser exits with error
+//            JOptionPane.showMessageDialog(null, "Error while reading file", "",
+//                    JOptionPane.ERROR_MESSAGE);
+//            System.exit(-1);
+//        }
+//        
         // read old static file for old answers
         List<Route> knownRoutes = CsvInformationParser.parseStaticFile("./static.csv");
         // analyse route
